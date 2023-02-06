@@ -7,9 +7,9 @@ import java.util.List;
 
 public interface UserRepository {
 
-    List<User> findAppropriate(User user);
+    List<User> findPairsFor(User user);
 
-    List<User> findAppropriate(Party party);
+    List<User> findGuestsFor(Party party);
 
     User findById(Long userId);
 

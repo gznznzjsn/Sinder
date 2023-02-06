@@ -32,7 +32,7 @@ public class AuthenticationController {
     }
 
     @PostMapping("/{userId}/password/request")
-    public void requestRefreshPassword() { //ссылка на почту
+    public void requestPasswordRefresh() { //ссылка на почту
 
     }
 
