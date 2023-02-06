@@ -10,7 +10,7 @@ import java.util.List;
 public class Party {
 
     private Long id;
-    private Long creatorId;
+    private User creator;
     private String name;
     private String description;
     private Point geolocation;

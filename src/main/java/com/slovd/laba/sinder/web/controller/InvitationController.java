@@ -14,7 +14,9 @@ public class InvitationController {
     }
 
     @PostMapping("/{partyId}/request")
-    public PartyDto request(){}
+    public PartyDto request(){
+
+    }
 
     @PostMapping("/{partyId}/skip")
     public PartyDto skip(){}

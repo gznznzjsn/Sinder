@@ -8,8 +8,8 @@ import java.time.LocalDateTime;
 public class Message {
 
     private Long id;
-    private Long senderId;
-    private Long receiverId;
+    private User sender;
+    private User receiver;
     private String text;
     private LocalDateTime dateTime;
 
