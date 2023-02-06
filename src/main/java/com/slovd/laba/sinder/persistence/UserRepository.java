@@ -7,21 +7,21 @@ import java.util.List;
 
 public interface UserRepository {
 
-    List<User> findPairsFor(User user);
+    List<User> findPairsFor(Long userId);
 
-    List<User> findGuestsFor(Party party);
+    List<User> findGuestsFor(Long partyId);
 
     User findById(Long userId);
 
     boolean isExist(String email);
 
+    void inviteGuest(Long partyId, Long guestId);
+
+    void skipGuest(Long partyId, Long guestId);
+
     void likePair(Long userId, Long pairId);
 
     void skipPair(Long userId, Long pairId);
-
-    void requestParty(Long guestId, Long partyId);
-
-    void skipParty(Long guestId, Long partyId);
 
     void create(User user);
 

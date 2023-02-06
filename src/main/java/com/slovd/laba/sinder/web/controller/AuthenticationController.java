@@ -1,5 +1,6 @@
 package com.slovd.laba.sinder.web.controller;
 
+import com.slovd.laba.sinder.web.dto.AuthEntityDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -12,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class AuthenticationController {
 
     @PostMapping("/register")
-    public void register(@RequestBody AuthEntityDto authEntityDto) {
+    public void register(@RequestBody AuthEntityDto authEntityDto) { //ссылка на почту
 
     }
 

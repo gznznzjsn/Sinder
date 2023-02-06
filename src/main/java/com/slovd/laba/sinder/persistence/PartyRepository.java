@@ -7,13 +7,13 @@ import java.util.List;
 
 public interface PartyRepository {
 
-    List<Party> findPartiesFor(User user);
+    List<Party> findPartiesFor(Long userId);
 
     Party findById(Long partyId);
 
-    void inviteGuest(Long partyId, Long guestId);
+    void requestParty(Long guestId, Long partyId);
 
-    void skipGuest(Long partyId, Long guestId);
+    void skipParty(Long guestId, Long partyId);
 
     void create(Party party);
 
