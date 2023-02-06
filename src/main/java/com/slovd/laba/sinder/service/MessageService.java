@@ -8,6 +8,6 @@ public interface MessageService {
 
     List<Message> retrieveAll(Long userId, Long pairId);
 
-    Message createMessage(Message message);
+    Message create(Message message);
 
 }

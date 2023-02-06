@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface MessageRepository {
 
-    List<Message> findChat(Long userId, Long pairId);
+    List<Message> findAll(Long userId, Long pairId);
 
     void create(Message message);
 

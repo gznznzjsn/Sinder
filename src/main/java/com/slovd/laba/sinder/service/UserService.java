@@ -7,11 +7,9 @@ import java.util.List;
 
 public interface UserService {
 
-    User create(User user);
+    List<User> retrievePairsFor(Long userId);
 
-    User update(User user);
-
-    void delete(Long userId);
+    List<User> retrieveGuestsFor(Long partyId);
 
     User retrieveById(Long userId);
 
@@ -19,14 +17,14 @@ public interface UserService {
 
     void likePair(Long userId, Long pairId);
 
-    List<User> retrievePairsFor(Long userId);
-
-    List<Party> retrievePartiesFor(Long userId);
-
-    List<User> retrieveGuestsFor(Long partyId);
-
     void inviteGuest(Long partyId, Long guestId);
 
     void skipGuest(Long partyId, Long guestId);
+
+    User create(User user);
+
+    User update(User user);
+
+    void delete(Long userId);
 
 }

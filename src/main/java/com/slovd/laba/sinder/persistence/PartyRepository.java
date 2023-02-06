@@ -1,7 +1,6 @@
 package com.slovd.laba.sinder.persistence;
 
 import com.slovd.laba.sinder.domain.Party;
-import com.slovd.laba.sinder.domain.User;
 
 import java.util.List;
 

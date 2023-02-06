@@ -7,6 +7,8 @@ import java.util.List;
 
 public interface PartyService {
 
+    List<Party> retrievePartiesFor(Long guestId);
+
     Party retrieveById(Long partyId);
 
     Party publish(Long partyId);
@@ -20,8 +22,5 @@ public interface PartyService {
     void delete(Long partyId);
 
     Party update(Party party);
-
-    List<Party> retrievePartiesFor(User guest);
-
 
 }
