@@ -13,6 +13,9 @@ public class InvitationController {
     public List<PartyDto> getAppropriate() {
     }
 
+    @GetMapping("/{partyId}")
+    public PartyDto getById(){}
+
     @PostMapping("/{partyId}/request")
     public PartyDto request(){
 
@@ -20,9 +23,5 @@ public class InvitationController {
 
     @PostMapping("/{partyId}/skip")
     public PartyDto skip(){}
-
-
-    @GetMapping("/{partyId}")
-    public PartyDto getById(){}
 
 }

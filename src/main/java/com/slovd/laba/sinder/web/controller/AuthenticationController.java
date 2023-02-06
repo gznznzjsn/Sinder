@@ -8,21 +8,26 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/v1")
+@RequestMapping("/api/v1/authentication")
 public class AuthenticationController {
 
-    @PostMapping("/login")
-    public UserDto register(@RequestBody UserDto userDto) {
+    @PostMapping("/register")
+    public void register(@RequestBody AuthEntityDto authEntityDto) {
 
     }
 
     @PostMapping("/login")
-    public JwtResponseDto login(@RequestBody JwtRequestDto jwtRequestDto) {
+    public AuthEntityDto login(@RequestBody AuthEntityDto authEntityDto) {
 
     }
 
     @PostMapping("/refresh")
-    public JwtResponseDto refresh(@RequestBody JwtRefreshRequestDto jwtRefreshRequestDto) {
+    public AuthEntityDto refresh(@RequestBody AuthEntityDto authEntityDto) {
+
+    }
+
+    @PostMapping("/enable")
+    public AuthEntityDto enable() { //request param token
 
     }
 

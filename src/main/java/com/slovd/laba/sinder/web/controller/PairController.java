@@ -12,13 +12,13 @@ public class PairController {
     @GetMapping
     public List<PairDto> getAppropriate(){}
 
-    @PostMapping("/{pairId}/like")
-    public PairDto markLiked(){}
-
-    @PostMapping("/{pairId}/skip")
-    public PairDto markSkipped(){}
-
     @GetMapping("/{pairId}")
     public PairDto getById(){}
+
+    @PostMapping("/{pairId}/like")
+    public PairDto like(){}
+
+    @PostMapping("/{pairId}/skip")
+    public PairDto skip(){}
 
 }

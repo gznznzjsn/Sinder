@@ -14,18 +14,13 @@ public class UserController {
 
     }
 
-    @PostMapping("/{userId}/password/forgot")
-    public UserDto forgot() {
-
-    }
-
-    @PostMapping("/{userId}/password/enable")
-    public UserDto enable() {
-
-    }
-
     @PostMapping("/{userId}/password/refresh")
-    public UserDto refresh() {
+    public UserDto refreshPassword() {
+
+    }
+
+    @PostMapping("/{userId}/password/update")
+    public UserDto updatePassword() {
 
     }
 
