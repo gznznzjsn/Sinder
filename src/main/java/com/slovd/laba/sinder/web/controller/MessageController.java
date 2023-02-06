@@ -5,20 +5,17 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
-@RequestMapping("/api/v1/users/{userId}/pairs")
-public class PairController {
+@RequestMapping("/api/v1/users/{userId}/pairs/{pairId}/messages")
+public class MessageController {
 
     @GetMapping
-    public List<PairDto> getAppropriate(){}
+    public List<MessageDto> openChat(){}
 
-    @PostMapping("/{pairId}/like")
-    public PairDto markLiked(){}
+    @PostMapping
+    public List<MessageDto> send(){} //phone, links as request params
 
-    @PostMapping("/{pairId}/skip")
-    public PairDto markSkipped(){}
-
-    @GetMapping("/{pairId}")
-    public PairDto getById(){}
 
 }
