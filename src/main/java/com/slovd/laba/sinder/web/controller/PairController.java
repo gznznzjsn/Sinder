@@ -10,15 +10,15 @@ import org.springframework.web.bind.annotation.RestController;
 public class PairController {
 
     @GetMapping
-    public List<PairDto> getAppropriate(){}
+    public List<UserDto> getAppropriate(){}
 
     @GetMapping("/{pairId}")
-    public PairDto getById(){}
+    public UserDto getById(){}
 
     @PostMapping("/{pairId}/like")
-    public PairDto like(){}
+    public UserDto like(){}
 
     @PostMapping("/{pairId}/skip")
-    public PairDto skip(){}
+    public UserDto skip(){}
 
 }

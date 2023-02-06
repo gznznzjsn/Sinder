@@ -15,7 +15,7 @@ public class MessageController {
     public List<MessageDto> openChat(){}
 
     @PostMapping
-    public List<MessageDto> send(){} //phone, links as request params
+    public MessageDto send(){} //phone, links as request params
 
 
 }

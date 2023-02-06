@@ -31,4 +31,19 @@ public class AuthenticationController {
 
     }
 
+    @PostMapping("/{userId}/password/request")
+    public void requestRefreshPassword() { //ссылка на почту
+
+    }
+
+    @PostMapping("/{userId}/password/refresh")
+    public AuthEntityDto refreshPassword(@RequestBody AuthEntityDto authEntityDto) { //set new password
+
+    }
+
+    @PostMapping("/{userId}/password/update")
+    public AuthEntityDto updatePassword(@RequestBody AuthEntityDto authEntityDto) {
+
+    }
+
 }

@@ -14,16 +14,6 @@ public class UserController {
 
     }
 
-    @PostMapping("/{userId}/password/refresh")
-    public UserDto refreshPassword() {
-
-    }
-
-    @PostMapping("/{userId}/password/update")
-    public UserDto updatePassword() {
-
-    }
-
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public UserDto create() {

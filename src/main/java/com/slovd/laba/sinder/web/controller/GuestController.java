@@ -12,22 +12,22 @@ import org.springframework.web.bind.annotation.RestController;
 public class GuestController {
 
     @GetMapping()
-    public List<GuestDto> getAppropriate() {
+    public List<UserDto> getAppropriate() {
 
     }
 
     @GetMapping("/{guestId}")
-    public GuestDto getById() {
+    public UserDto getById() {
 
     }
 
     @PostMapping("/{guestId}/invite")
-    public GuestDto invite() {
+    public UserDto invite() {
 
     }
 
     @PostMapping("/{guestId}/skip")
-    public GuestDto skip() {
+    public UserDto skip() {
 
     }
 
