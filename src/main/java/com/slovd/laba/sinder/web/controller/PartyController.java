@@ -1,17 +1,11 @@
 package com.slovd.laba.sinder.web.controller;
 
-import com.slovd.laba.sinder.domain.Party;
-import com.slovd.laba.sinder.domain.User;
 import com.slovd.laba.sinder.web.dto.PartyDto;
 import com.slovd.laba.sinder.web.dto.group.OnUpdate;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-
-import java.awt.*;
-import java.time.LocalDate;
-import java.util.List;
 
 @RestController
 @RequiredArgsConstructor

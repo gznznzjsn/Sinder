@@ -9,7 +9,6 @@ public interface AuthEntityMapper {
 
     AuthEntity toEntity(AuthEntityDto dto);
 
-    //    @Mapping(target = "finalCost", expression = "java(com.gznznzjsn.carservice.service.AssignmentService.calculateTotalCost(entity))")
-    AuthEntityDto toDto(AuthEntity entity);
+   AuthEntityDto toDto(AuthEntity entity);
 
 }

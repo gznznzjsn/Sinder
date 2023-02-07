@@ -1,6 +1,7 @@
 package com.slovd.laba.sinder.web.controller;
 
 import com.slovd.laba.sinder.web.dto.PartyDto;
+import com.slovd.laba.sinder.web.dto.PartyMatchDto;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,13 +24,13 @@ public class InvitationController {
     }
 
     @PostMapping("/{partyId}/request")
-    public PartyDto request(){
+    public PartyMatchDto request(){
         // todo maybe void too??
         return null;
     }
 
     @PostMapping("/{partyId}/skip")
-    public PartyDto skip(){
+    public PartyMatchDto skip(){
         return null;
     } //todo maybe match dto??
 

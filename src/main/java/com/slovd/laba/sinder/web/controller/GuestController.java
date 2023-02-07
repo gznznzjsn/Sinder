@@ -1,5 +1,6 @@
 package com.slovd.laba.sinder.web.controller;
 
+import com.slovd.laba.sinder.web.dto.PartyMatchDto;
 import com.slovd.laba.sinder.web.dto.UserDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,12 +26,12 @@ public class GuestController {
     }
 
     @PostMapping("/{guestId}/invite")
-    public UserDto invite() {
+    public PartyMatchDto invite() {
         return null;
     }
 
     @PostMapping("/{guestId}/skip")
-    public UserDto skip() { // todo maybe match dto??
+    public PartyMatchDto skip() {
         return null;
     }
 

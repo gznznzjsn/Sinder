@@ -1,5 +1,6 @@
 package com.slovd.laba.sinder.web.controller;
 
+import com.slovd.laba.sinder.web.dto.PairMatchDto;
 import com.slovd.laba.sinder.web.dto.UserDto;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -23,13 +24,13 @@ public class PairController {
     }
 
     @PostMapping("/{pairId}/like")
-    public UserDto like(){
+    public PairMatchDto like(){
         return null;
     }
 
     @PostMapping("/{pairId}/skip")
-    public UserDto skip(){
+    public PairMatchDto skip(){
         return null;
-    }  // todo maybe match dto??
+    }
 
 }

@@ -1,27 +1,21 @@
 package com.slovd.laba.sinder.web.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.slovd.laba.sinder.web.dto.group.OnSend;
-import org.hibernate.validator.constraints.Length;
+import com.slovd.laba.sinder.domain.PartyMatchStatus;
 
-import java.time.LocalDateTime;
-
-public record MessageDto(
+public record PartyMatchDto(
 
         @JsonProperty(access = JsonProperty.Access.READ_ONLY)
         Long id,
 
         @JsonProperty(access = JsonProperty.Access.READ_ONLY)
-        UserDto sender,
+        PartyMatchStatus status,
 
         @JsonProperty(access = JsonProperty.Access.READ_ONLY)
-        UserDto receiver,
-
-        @Length(max = 255, groups = {OnSend.class}, message = "Too long text!")
-        String text,
+        UserDto guest,
 
         @JsonProperty(access = JsonProperty.Access.READ_ONLY)
-        LocalDateTime dateTime
+        PartyDto party
 
 ) {
 }

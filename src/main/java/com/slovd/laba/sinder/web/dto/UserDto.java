@@ -3,9 +3,14 @@ package com.slovd.laba.sinder.web.dto;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.slovd.laba.sinder.domain.Gender;
 import com.slovd.laba.sinder.web.dto.group.OnUpdate;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
+import org.hibernate.validator.constraints.Length;
 
-import java.awt.Point;
+import java.awt.*;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -14,47 +19,50 @@ public record UserDto(
         @JsonProperty(access = JsonProperty.Access.READ_ONLY)
         Long id,
 
-        @NotNull(groups = {OnUpdate.class})
+        @NotBlank(groups = {OnUpdate.class}, message = "Name can't be blank!")
+        @Length(min = 2, max = 50, groups = {OnUpdate.class}, message = "Name must include minimum {min} and maximum {max} characters!")
         String name,
 
-        @NotNull(groups = {OnUpdate.class})
+        @Length(min = 2, max = 50, groups = {OnUpdate.class}, message = "Surname must include minimum {min} and maximum {max} characters!")
         String surname,
 
+        @JsonProperty(access = JsonProperty.Access.READ_ONLY)
         String email,
 
-        String password,
-
-        @NotNull(groups = {OnUpdate.class})
+        @NotNull(groups = {OnUpdate.class}, message = "Gender can't be blank!")
         Gender gender,
 
-        @NotNull(groups = {OnUpdate.class})
+        @NotNull(groups = {OnUpdate.class}, message = "Geolocation can't be blank!")
         Point geolocation,
 
-        @NotNull(groups = {OnUpdate.class})
+        @NotNull(groups = {OnUpdate.class}, message = "Age can't be blank!")
+        @Min(value = 18, groups = {OnUpdate.class}, message = "User can't be younger than {value}!")
         Integer age,
 
-        @NotNull(groups = {OnUpdate.class})
+        @NotBlank(groups = {OnUpdate.class}, message = "Description can't be blank!")
+        @Length(max = 255, groups = {OnUpdate.class}, message = "Description must include maximum {max} characters!")
         String description,
 
-        @NotNull(groups = {OnUpdate.class})
+        @NotNull(groups = {OnUpdate.class}, message = "Photos can't be blank!")
         List<String> photos,
 
-        @NotNull(groups = {OnUpdate.class})
+        @NotNull(groups = {OnUpdate.class}, message = "Party dates can be empty, but can't be blank!")
         List<LocalDate> partyDates,
 
-        @NotNull(groups = {OnUpdate.class})
+        @Positive(groups = {OnUpdate.class}, message = "Phone number must be positive!")
         Integer phoneNumber,
 
-        @NotNull(groups = {OnUpdate.class})
+        @Length(max = 50, groups = {OnUpdate.class}, message = "Instagram link must include maximum {max} characters!")
         String instagramLink,
 
-        @NotNull(groups = {OnUpdate.class})
+        @Length(max = 50, groups = {OnUpdate.class}, message = "Facebook link must include maximum {max} characters!")
         String facebookLink,
 
+        @Valid
         PairPreferenceDto pairPreference,
 
         @JsonProperty(access = JsonProperty.Access.READ_ONLY)
-        boolean enabled
+        Boolean enabled
 
 ) {
 }

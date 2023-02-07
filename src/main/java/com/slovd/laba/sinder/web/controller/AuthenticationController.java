@@ -1,7 +1,9 @@
 package com.slovd.laba.sinder.web.controller;
 
+import com.slovd.laba.sinder.domain.AuthEntity;
 import com.slovd.laba.sinder.web.dto.AuthEntityDto;
 import com.slovd.laba.sinder.web.dto.group.*;
+import com.slovd.laba.sinder.web.dto.mapper.AuthEntityMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -11,15 +13,18 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/v1/authentication")
 public class AuthenticationController {
 
+    private final AuthEntityMapper authEntityMapper;
+
     @PostMapping("/register")
-    public void register(@Validated(OnRegister.class) @RequestBody AuthEntityDto authEntityDto) { //ссылка на почту
+    public void register(@Validated(OnRegister.class) @RequestBody AuthEntityDto authEntityDto) {
         // name, surname, email, password
     }
 
     @PostMapping("/login")
     public AuthEntityDto login(@Validated(OnLogin.class) @RequestBody AuthEntityDto authEntityDto) {
         // email, password
-        return authEntityDto;
+        AuthEntity authEntity = authEntityMapper.toEntity(authEntityDto);
+        return authEntityMapper.toDto(authEntity);
     }
 
     @PostMapping("/refresh")
@@ -29,12 +34,12 @@ public class AuthenticationController {
     }
 
     @PostMapping("/enable")
-    public AuthEntityDto enable(@RequestParam String enableToken) {
+    public AuthEntityDto enable(@Validated(OnEnable.class) AuthEntityDto authEntityDto) {
         return null;
     }
 
     @PostMapping("/{userId}/password/request")
-    public void requestPasswordRefresh(@RequestParam String email) {
+    public void requestPasswordRefresh(@RequestParam String email) { // OnRequestPasswordRefresh
     }
 
     @PostMapping("/{userId}/password/refresh")

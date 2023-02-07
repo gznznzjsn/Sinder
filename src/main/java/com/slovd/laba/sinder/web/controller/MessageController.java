@@ -1,5 +1,6 @@
 package com.slovd.laba.sinder.web.controller;
 
+import com.slovd.laba.sinder.web.dto.AttachmentDto;
 import com.slovd.laba.sinder.web.dto.MessageDto;
 import com.slovd.laba.sinder.web.dto.group.OnSend;
 import org.springframework.validation.annotation.Validated;
@@ -17,8 +18,9 @@ public class MessageController {
     }
 
     @PostMapping
-    public MessageDto send(@Validated(OnSend.class) @RequestBody MessageDto messageDto) {
+    public MessageDto send(@Validated(OnSend.class) @RequestBody MessageDto messageDto, @Validated(OnSend.class) AttachmentDto attachmentDto) {
         // text, links
+        System.out.println(attachmentDto);
         return null;
     } //phone, links as request params
 
