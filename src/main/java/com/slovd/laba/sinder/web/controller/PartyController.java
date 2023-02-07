@@ -1,8 +1,17 @@
 package com.slovd.laba.sinder.web.controller;
 
+import com.slovd.laba.sinder.domain.Party;
+import com.slovd.laba.sinder.domain.User;
+import com.slovd.laba.sinder.web.dto.PartyDto;
+import com.slovd.laba.sinder.web.dto.group.OnUpdate;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
+import java.awt.*;
+import java.time.LocalDate;
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -11,18 +20,19 @@ public class PartyController {
 
     @GetMapping("/{partyId}")
     public PartyDto getById() {
-
+        return null;
     }
 
     @PostMapping("/{partyId}")
     public PartyDto publish() {
-
+        return null;
     }
 
     @PostMapping()
     @ResponseStatus(HttpStatus.CREATED)
-    public PartyDto create() {
-
+    public PartyDto create(@Validated(OnUpdate.class) @RequestBody PartyDto partyDto) {
+        // name, description, geolocation, photos, date, dressCode, capacity, minAge, maxAge
+        return null;
     }
 
     @DeleteMapping("/{partyId}")
@@ -32,8 +42,9 @@ public class PartyController {
     }
 
     @PutMapping("/{partyId}")
-    public PartyDto update() {
-
+    public PartyDto update(@Validated(OnUpdate.class) @RequestBody PartyDto partyDto) { //do not use, if already published
+        // name, description, geolocation, photos, date, dressCode, capacity, minAge, maxAge
+        return null;
     }
 
 }

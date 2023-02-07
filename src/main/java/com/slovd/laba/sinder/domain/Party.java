@@ -1,12 +1,18 @@
 package com.slovd.laba.sinder.domain;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.awt.*;
 import java.time.LocalDate;
 import java.util.List;
 
 @Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Party {
 
     private Long id;

@@ -1,11 +1,10 @@
 package com.slovd.laba.sinder.web.controller;
 
 import com.slovd.laba.sinder.web.dto.AuthEntityDto;
+import com.slovd.laba.sinder.web.dto.group.*;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
@@ -13,38 +12,41 @@ import org.springframework.web.bind.annotation.RestController;
 public class AuthenticationController {
 
     @PostMapping("/register")
-    public void register(@RequestBody AuthEntityDto authEntityDto) { //ссылка на почту
-
+    public void register(@Validated(OnRegister.class) @RequestBody AuthEntityDto authEntityDto) { //ссылка на почту
+        // name, surname, email, password
     }
 
     @PostMapping("/login")
-    public AuthEntityDto login(@RequestBody AuthEntityDto authEntityDto) {
-
+    public AuthEntityDto login(@Validated(OnLogin.class) @RequestBody AuthEntityDto authEntityDto) {
+        // email, password
+        return authEntityDto;
     }
 
     @PostMapping("/refresh")
-    public AuthEntityDto refresh(@RequestBody AuthEntityDto authEntityDto) {
-
+    public AuthEntityDto refresh(@Validated(OnRefresh.class) @RequestBody AuthEntityDto authEntityDto) {
+        // refreshToken
+        return authEntityDto;
     }
 
     @PostMapping("/enable")
-    public AuthEntityDto enable() { //request param token
-
+    public AuthEntityDto enable(@RequestParam String enableToken) { // todo maybe void
+        return null;
     }
 
     @PostMapping("/{userId}/password/request")
-    public void requestPasswordRefresh() { //ссылка на почту
-
+    public void requestPasswordRefresh(@RequestParam String email) {
     }
 
     @PostMapping("/{userId}/password/refresh")
-    public AuthEntityDto refreshPassword(@RequestBody AuthEntityDto authEntityDto) { //set new password
-
+    public AuthEntityDto refreshPassword(@Validated(OnPasswordRefresh.class) @RequestBody AuthEntityDto authEntityDto) {
+        // passwordRefreshToken, password
+        return authEntityDto;
     }
 
     @PostMapping("/{userId}/password/update")
-    public AuthEntityDto updatePassword(@RequestBody AuthEntityDto authEntityDto) {
-
+    public AuthEntityDto updatePassword(@Validated(OnUpdatePassword.class) @RequestBody AuthEntityDto authEntityDto) {
+        // oldPassword, newPassword
+        return authEntityDto;
     }
 
 }

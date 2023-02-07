@@ -1,9 +1,9 @@
 package com.slovd.laba.sinder.web.controller;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.slovd.laba.sinder.web.dto.MessageDto;
+import com.slovd.laba.sinder.web.dto.group.OnSend;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -12,10 +12,15 @@ import java.util.List;
 public class MessageController {
 
     @GetMapping
-    public List<MessageDto> openChat(){}
+    public List<MessageDto> openChat() {
+        return null;
+    }
 
     @PostMapping
-    public MessageDto send(){} //phone, links as request params
+    public MessageDto send(@Validated(OnSend.class) @RequestBody MessageDto messageDto) {
+        // text, links
+        return null;
+    } //phone, links as request params
 
 
 }
