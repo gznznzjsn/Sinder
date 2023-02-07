@@ -17,13 +17,6 @@ public class UserController {
         return null;
     }
 
-    //todo
-//    @PostMapping
-//    @ResponseStatus(HttpStatus.CREATED)
-//    public UserDto create(@RequestBody UserDto userDto) {
-//
-//    }
-
     @DeleteMapping("/{userId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete() {

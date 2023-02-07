@@ -29,7 +29,7 @@ public class AuthenticationController {
     }
 
     @PostMapping("/enable")
-    public AuthEntityDto enable(@RequestParam String enableToken) { // todo maybe void
+    public AuthEntityDto enable(@RequestParam String enableToken) {
         return null;
     }
 
