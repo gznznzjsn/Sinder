@@ -9,7 +9,6 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import org.hibernate.validator.constraints.Length;
 
-import java.awt.*;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -30,7 +29,7 @@ public record PartyDto(
         String description,
 
         @NotNull(groups = {OnUpdate.class}, message = "Geolocation can't be blank!")
-        Point geolocation,
+        PointDto geolocation,
 
         @NotNull(groups = {OnUpdate.class}, message = "Photos can't be blank!")
         List<String> photos,

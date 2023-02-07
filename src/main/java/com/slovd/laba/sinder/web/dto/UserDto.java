@@ -10,7 +10,6 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import org.hibernate.validator.constraints.Length;
 
-import java.awt.*;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -33,7 +32,7 @@ public record UserDto(
         Gender gender,
 
         @NotNull(groups = {OnUpdate.class}, message = "Geolocation can't be blank!")
-        Point geolocation,
+        PointDto geolocation,
 
         @NotNull(groups = {OnUpdate.class}, message = "Age can't be blank!")
         @Min(value = 18, groups = {OnUpdate.class}, message = "User can't be younger than {value}!")
