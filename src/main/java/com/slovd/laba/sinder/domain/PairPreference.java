@@ -15,17 +15,9 @@ public class PairPreference {
 
     private Long id;
     private Set<Gender> genders;
+    private Goal goal;
     private Integer minAge;
     private Integer maxAge;
-    private Goal goal;
     private Integer radius;
-
-    public enum PairStatus {
-
-        REQUESTED,
-        APPROVED,
-        REJECTED
-
-    }
 
 }

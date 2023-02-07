@@ -28,13 +28,4 @@ public class Party {
     private Integer maxAge;
     private boolean published;
 
-    public enum PartyStatus {
-
-        REQUESTED,
-        INVITED,
-        APPROVED,
-        REJECTED
-
-    }
-
 }
