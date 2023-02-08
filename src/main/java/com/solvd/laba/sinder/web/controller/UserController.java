@@ -1,7 +1,10 @@
 package com.solvd.laba.sinder.web.controller;
 
+import com.solvd.laba.sinder.domain.user.User;
+import com.solvd.laba.sinder.service.UserService;
 import com.solvd.laba.sinder.web.dto.UserDto;
 import com.solvd.laba.sinder.web.dto.group.OnUpdate;
+import com.solvd.laba.sinder.web.dto.mapper.UserMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
@@ -12,20 +15,28 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/v1/users")
 public class UserController {
 
+    private final UserService userService;
+    private final UserMapper userMapper;
+
     @GetMapping("/{userId}")
-    public UserDto getById() {
-        return null;
+    public UserDto getById(@PathVariable Long userId) {
+        User user = userService.retrieveById(userId);
+        return userMapper.toDto(user);
     }
 
     @DeleteMapping("/{userId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void delete() {
+    public void delete(@PathVariable Long userId) {
+        userService.delete(userId);
     }
 
     @PutMapping("/{userId}")
-    public UserDto update(@Validated(OnUpdate.class) @RequestBody UserDto userDto) {
+    public UserDto update(@Validated(OnUpdate.class) @RequestBody UserDto userDto, @PathVariable Long userId) {
         //  name,surname,gender,geolocation, age, description,photos, partyDates, phoneNumber,instagramLink;facebookLink;pairPreference;
-        return null;
+        User user = userMapper.toEntity(userDto);
+        user.setId(userId);
+        User updatedUser = userService.update(user);
+        return userMapper.toDto(updatedUser);
     }
 
 }

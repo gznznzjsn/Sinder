@@ -8,10 +8,14 @@ public interface AuthenticationService {
 
     AuthEntity login(AuthEntity authEntity);
 
-    void requestPasswordRefresh(AuthEntity authEntity);
+    AuthEntity refresh(AuthEntity authEntity);
+
+    AuthEntity enable(AuthEntity authEntity);
+
+    void requestPasswordRefresh(Long authEntity);
 
     AuthEntity refreshPassword(AuthEntity authEntity);
 
-    AuthEntity updatePassword(AuthEntity authEntity);
+    AuthEntity updatePassword(Long userId, AuthEntity authEntity);
 
 }
