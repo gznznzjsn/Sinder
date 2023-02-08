@@ -8,6 +8,7 @@ import com.solvd.laba.sinder.persistence.MessageRepository;
 import com.solvd.laba.sinder.service.MessageService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Objects;
@@ -24,7 +25,8 @@ public class MessageServiceImpl implements MessageService {
     }
 
     @Override
-    public Message create(Message message, Attachment attachment) {
+    @Transactional
+    public Message create(Message message, Attachment attachment) { //stringbuilder
         String text = message.getText();
         User sender = message.getSender();
         if (attachment.getPhoneNumber()) {

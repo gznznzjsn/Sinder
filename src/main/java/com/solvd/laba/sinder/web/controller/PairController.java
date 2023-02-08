@@ -14,8 +14,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/users/{userId}/pairs")
@@ -27,25 +25,29 @@ public class PairController {
     private final PairMatchMapper pairMatchMapper;
 
     @GetMapping
-    public List<UserDto> getAppropriate(@PathVariable Long userId,@PageableDefault(size = 5) Pageable pageable) {
+    public Page<UserDto> getAppropriate(@PathVariable Long userId,
+                                        @PageableDefault(size = 5) Pageable pageable) { //reqParam page! Postman
         Page<User> pairs = userService.retrievePairsFor(userId, pageable);
-        return pairs.stream().map(userMapper::toDto).toList();
+        return userMapper.toDto(pairs);
     }
 
     @GetMapping("/{pairId}")
-    public UserDto getById(@PathVariable Long userId, @PathVariable Long pairId) {
+    public UserDto getById(@PathVariable Long userId,
+                           @PathVariable Long pairId) {
         User pair = userService.retrieveById(pairId);
         return userMapper.toDto(pair);
     }
 
     @PostMapping("/{pairId}/like")
-    public PairMatchDto like(@PathVariable Long userId, @PathVariable Long pairId) {
+    public PairMatchDto like(@PathVariable Long userId,
+                             @PathVariable Long pairId) {
         PairMatch pairMatch = pairMatchService.likePair(userId, pairId);
         return pairMatchMapper.toDto(pairMatch);
     }
 
     @PostMapping("/{pairId}/skip")
-    public PairMatchDto skip(@PathVariable Long userId, @PathVariable Long pairId) {
+    public PairMatchDto skip(@PathVariable Long userId,
+                             @PathVariable Long pairId) {
         PairMatch pairMatch = pairMatchService.skipPair(userId, pairId);
         return pairMatchMapper.toDto(pairMatch);
     }

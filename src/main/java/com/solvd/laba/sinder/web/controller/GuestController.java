@@ -14,8 +14,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/users/{userId}/parties/{partyId}/guests")
@@ -27,27 +25,33 @@ public class GuestController {
     private final PartyMatchMapper partyMatchMapper;
 
     @GetMapping()
-    public List<UserDto> getAppropriate(@PathVariable Long userId,
+    public Page<UserDto> getAppropriate(@PathVariable Long userId,
                                         @PathVariable Long partyId,
-                                        @PageableDefault(size = 5) Pageable pageable) {
+                                        @PageableDefault(size = 5) Pageable pageable) { //reqParam page! Postman
         Page<User> guests = userService.retrieveGuestsFor(partyId, pageable);
-        return guests.stream().map(userMapper::toDto).toList();
+        return userMapper.toDto(guests);
     }
 
     @GetMapping("/{guestId}")
-    public UserDto getById(@PathVariable Long userId, @PathVariable String partyId, @PathVariable Long guestId) {
+    public UserDto getById(@PathVariable Long userId,
+                           @PathVariable String partyId,
+                           @PathVariable Long guestId) {
         User guest = userService.retrieveById(guestId);
         return userMapper.toDto(guest); //todo another dto
     }
 
     @PostMapping("/{guestId}/invite")
-    public PartyMatchDto invite(@PathVariable Long userId, @PathVariable Long partyId, @PathVariable Long guestId) {
+    public PartyMatchDto invite(@PathVariable Long userId,
+                                @PathVariable Long partyId,
+                                @PathVariable Long guestId) {
         PartyMatch partyMatch = partyMatchService.inviteGuest(partyId, guestId);
         return partyMatchMapper.toDto(partyMatch);
     }
 
     @PostMapping("/{guestId}/skip")
-    public PartyMatchDto skip(@PathVariable Long userId, @PathVariable Long partyId, @PathVariable Long guestId) {
+    public PartyMatchDto skip(@PathVariable Long userId,
+                              @PathVariable Long partyId,
+                              @PathVariable Long guestId) {
         PartyMatch partyMatch = partyMatchService.skipGuest(partyId, guestId);
         return partyMatchMapper.toDto(partyMatch);
     }

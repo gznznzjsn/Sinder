@@ -20,20 +20,23 @@ public class PartyController {
     private final PartyMapper partyMapper;
 
     @GetMapping("/{partyId}")
-    public PartyDto getById(@PathVariable Long userId, @PathVariable Long partyId) {
+    public PartyDto getById(@PathVariable Long userId,
+                            @PathVariable Long partyId) {
         Party party = partyService.retrieveById(partyId);
         return partyMapper.toDto(party);
     }
 
     @PostMapping("/{partyId}")
-    public PartyDto publish(@PathVariable Long userId, @PathVariable Long partyId) {
+    public PartyDto publish(@PathVariable Long userId,
+                            @PathVariable Long partyId) {
         Party party = partyService.publish(partyId);
         return partyMapper.toDto(party);
     }
 
     @PostMapping()
     @ResponseStatus(HttpStatus.CREATED)
-    public PartyDto create(@Validated(OnUpdate.class) @RequestBody PartyDto partyDto, @PathVariable Long userId) {
+    public PartyDto create(@Validated(OnUpdate.class) @RequestBody PartyDto partyDto,
+                           @PathVariable Long userId) {
         // name, description, geolocation, photos, date, dressCode, capacity, minAge, maxAge
         Party party = partyMapper.toEntity(partyDto);
         party.setCreator(User.builder().id(userId).build());
@@ -43,12 +46,15 @@ public class PartyController {
 
     @DeleteMapping("/{partyId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void delete(@PathVariable Long userId, @PathVariable Long partyId) {
+    public void delete(@PathVariable Long userId,
+                       @PathVariable Long partyId) {
         partyService.delete(partyId);
     }
 
     @PutMapping("/{partyId}")
-    public PartyDto update(@Validated(OnUpdate.class) @RequestBody PartyDto partyDto, @PathVariable Long userId, @PathVariable Long partyId) { //do not use, if already published
+    public PartyDto update(@Validated(OnUpdate.class) @RequestBody PartyDto partyDto,
+                           @PathVariable Long userId,
+                           @PathVariable Long partyId) { //do not use, if already published
         // name, description, geolocation, photos, date, dressCode, capacity, minAge, maxAge
         Party party = partyMapper.toEntity(partyDto);
         party.setId(partyId);

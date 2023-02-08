@@ -54,7 +54,8 @@ public class AuthenticationController {
     }
 
     @PostMapping("/{userId}/password/refresh")
-    public AuthEntityDto refreshPassword(@Validated(OnPasswordRefresh.class) @RequestBody AuthEntityDto authEntityDto, @PathVariable String userId) {
+    public AuthEntityDto refreshPassword(@Validated(OnPasswordRefresh.class) @RequestBody AuthEntityDto authEntityDto,
+                                         @PathVariable String userId) {
         // passwordRefreshToken, password
         AuthEntity authEntity = authEntityMapper.toEntity(authEntityDto);
         AuthEntity returnedAuthEntity = authenticationService.refreshPassword(authEntity);
@@ -62,7 +63,8 @@ public class AuthenticationController {
     }
 
     @PostMapping("/{userId}/password/update")
-    public AuthEntityDto updatePassword(@Validated(OnUpdatePassword.class) @RequestBody AuthEntityDto authEntityDto, @PathVariable Long userId) {
+    public AuthEntityDto updatePassword(@Validated(OnUpdatePassword.class) @RequestBody AuthEntityDto authEntityDto,
+                                        @PathVariable Long userId) {
         // oldPassword, newPassword
         AuthEntity authEntity = authEntityMapper.toEntity(authEntityDto);
         AuthEntity returnedAuthEntity = authenticationService.updatePassword(userId, authEntity);

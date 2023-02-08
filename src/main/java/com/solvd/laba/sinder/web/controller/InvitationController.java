@@ -14,8 +14,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/users/{userId}/invitations")
@@ -27,25 +25,29 @@ public class InvitationController {
     private final PartyMapper partyMapper;
 
     @GetMapping
-    public List<PartyDto> getAppropriate(@PathVariable Long userId,@PageableDefault(size = 5) Pageable pageable) {
-        Page<Party> guests = partyService.retrievePartiesFor(userId,pageable);
-        return guests.stream().map(partyMapper::toDto).toList();
+    public Page<PartyDto> getAppropriate(@PathVariable Long userId,
+                                         @PageableDefault(size = 5) Pageable pageable) { //reqParam page! Postman
+        Page<Party> parties = partyService.retrievePartiesFor(userId, pageable);
+        return partyMapper.toDto(parties);
     }
 
     @GetMapping("/{partyId}")
-    public PartyDto getById(@PathVariable Long userId, @PathVariable Long partyId) {
+    public PartyDto getById(@PathVariable Long userId,
+                            @PathVariable Long partyId) {
         Party party = partyService.retrieveById(partyId);
         return partyMapper.toDto(party);
     }
 
     @PostMapping("/{partyId}/request")
-    public PartyMatchDto request(@PathVariable Long userId, @PathVariable Long partyId) {
+    public PartyMatchDto request(@PathVariable Long userId,
+                                 @PathVariable Long partyId) {
         PartyMatch partyMatch = partyMatchService.requestParty(userId, partyId);
         return partyMatchMapper.toDto(partyMatch);
     }
 
     @PostMapping("/{partyId}/skip")
-    public PartyMatchDto skip(@PathVariable Long userId, @PathVariable Long partyId) {
+    public PartyMatchDto skip(@PathVariable Long userId,
+                              @PathVariable Long partyId) {
         PartyMatch partyMatch = partyMatchService.skipParty(userId, partyId);
         return partyMatchMapper.toDto(partyMatch);
     }

@@ -25,13 +25,17 @@ public class MessageController {
     private final AttachmentMapper attachmentMapper;
 
     @GetMapping
-    public List<MessageDto> openChat(@PathVariable Long userId, @PathVariable Long pairId) {
+    public List<MessageDto> openChat(@PathVariable Long userId,
+                                     @PathVariable Long pairId) {
         List<Message> messages = messageService.retrieveAll(userId, pairId);
         return messages.stream().map(messageMapper::toDto).toList();
     }
 
     @PostMapping
-    public MessageDto send(@Validated(OnSend.class) @RequestBody MessageDto messageDto, @Validated(OnSend.class) AttachmentDto attachmentDto, @PathVariable Long userId, @PathVariable Long pairId) {
+    public MessageDto send(@Validated(OnSend.class) @RequestBody MessageDto messageDto,
+                           @Validated(OnSend.class) AttachmentDto attachmentDto,
+                           @PathVariable Long userId,
+                           @PathVariable Long pairId) {
         Message message = messageMapper.toEntity(messageDto);
         Attachment attachment = attachmentMapper.toEntity(attachmentDto);
         message.setSender(User.builder().id(userId).build());

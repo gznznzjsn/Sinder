@@ -31,7 +31,8 @@ public class UserController {
     }
 
     @PutMapping("/{userId}")
-    public UserDto update(@Validated(OnUpdate.class) @RequestBody UserDto userDto, @PathVariable Long userId) {
+    public UserDto update(@Validated(OnUpdate.class) @RequestBody UserDto userDto,
+                          @PathVariable Long userId) {
         //  name,surname,gender,geolocation, age, description,photos, partyDates, phoneNumber,instagramLink;facebookLink;pairPreference;
         User user = userMapper.toEntity(userDto);
         user.setId(userId);

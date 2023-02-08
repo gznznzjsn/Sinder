@@ -11,7 +11,10 @@ import java.time.LocalDate;
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
 
+    //create @Query
 //    List<User> findPairsFor(Long userId);
+
+    //change @Query, find by date and if exists status (only requested)
     Page<User> findAllByPartyDates(LocalDate partyDate, Pageable pageable);
 
     Boolean existsByEmail(String email);

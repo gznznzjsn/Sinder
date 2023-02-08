@@ -1,6 +1,7 @@
 package com.solvd.laba.sinder.service.impl;
 
 import com.solvd.laba.sinder.domain.Party;
+import com.solvd.laba.sinder.domain.exception.IllegalActionException;
 import com.solvd.laba.sinder.domain.exception.ResourceNotFoundException;
 import com.solvd.laba.sinder.domain.user.User;
 import com.solvd.laba.sinder.persistence.PartyRepository;
@@ -10,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -21,7 +23,7 @@ public class PartyServiceImpl implements PartyService {
     @Override
     public Page<Party> retrievePartiesFor(Long guestId, Pageable pageable) {
         User guest = userService.retrieveById(guestId);
-        return partyRepository.findAllByDateIn(guest.getPartyDates(), pageable);
+        return partyRepository.findAllByDateIn(guest.getPartyDates(), pageable); //change query
     }
 
     @Override
@@ -31,6 +33,7 @@ public class PartyServiceImpl implements PartyService {
     }
 
     @Override
+    @Transactional
     public Party publish(Long partyId) {
         Party party = retrieveById(partyId);
         party.setPublished(true);
@@ -38,20 +41,25 @@ public class PartyServiceImpl implements PartyService {
     }
 
     @Override
+    @Transactional
     public Party create(Party party) {
         return partyRepository.save(party);
     }
 
     @Override
+    @Transactional
     public void delete(Long partyId) {
         Party party = retrieveById(partyId);
         partyRepository.delete(party);
     }
 
     @Override
+    @Transactional
     public Party update(Party party) {
         Party foundParty = retrieveById(party.getId());
-        foundParty.setCreator(party.getCreator());
+        if (!foundParty.getPublished()) {
+            throw new IllegalActionException(""); //todo message
+        }
         foundParty.setName(party.getName());
         foundParty.setDescription(party.getDescription());
         foundParty.setDate(party.getDate());

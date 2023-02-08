@@ -14,6 +14,7 @@ public interface PartyRepository extends JpaRepository<Party, Long> {
 
     Page<Party> findAllByCreatorId(Long creatorId, Pageable pageable);
 
+    //change @Query, find by date, published and if exists status (only invited)
     Page<Party> findAllByDateIn(List<LocalDate> dates, Pageable pageable);
 
 }
