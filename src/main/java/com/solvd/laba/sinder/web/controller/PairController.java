@@ -10,9 +10,12 @@ import com.solvd.laba.sinder.web.dto.mapper.PairMatchMapper;
 import com.solvd.laba.sinder.web.dto.mapper.UserMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -28,7 +31,8 @@ public class PairController {
     public Page<UserDto> getAppropriate(@PathVariable Long userId,
                                         @PageableDefault(size = 5) Pageable pageable) { //reqParam page! Postman
         Page<User> pairs = userService.retrievePairsFor(userId, pageable);
-        return userMapper.toDto(pairs);
+        List<UserDto> pairsDto = userMapper.toDto(pairs.getContent());
+        return new PageImpl<>(pairsDto);
     }
 
     @GetMapping("/{pairId}")

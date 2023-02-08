@@ -3,7 +3,8 @@ package com.solvd.laba.sinder.web.dto.mapper;
 import com.solvd.laba.sinder.domain.user.User;
 import com.solvd.laba.sinder.web.dto.UserDto;
 import org.mapstruct.Mapper;
-import org.springframework.data.domain.Page;
+
+import java.util.List;
 
 @Mapper(componentModel = "spring", uses = {PairPreferenceMapper.class, PointMapper.class})
 public interface UserMapper {
@@ -12,8 +13,8 @@ public interface UserMapper {
 
     UserDto toDto(User entity);
 
-    Page<User> toEntity(Page<UserDto> dto);
+    List<User> toEntity(List<UserDto> dto);
 
-    Page<UserDto> toDto(Page<User> entity);
+    List<UserDto> toDto(List<User> entity);
 
 }

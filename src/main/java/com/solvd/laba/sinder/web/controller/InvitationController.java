@@ -10,9 +10,12 @@ import com.solvd.laba.sinder.web.dto.mapper.PartyMapper;
 import com.solvd.laba.sinder.web.dto.mapper.PartyMatchMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -28,7 +31,8 @@ public class InvitationController {
     public Page<PartyDto> getAppropriate(@PathVariable Long userId,
                                          @PageableDefault(size = 5) Pageable pageable) { //reqParam page! Postman
         Page<Party> parties = partyService.retrievePartiesFor(userId, pageable);
-        return partyMapper.toDto(parties);
+        List<PartyDto> partiesDto = partyMapper.toDto(parties.getContent());
+        return new PageImpl<>(partiesDto);
     }
 
     @GetMapping("/{partyId}")

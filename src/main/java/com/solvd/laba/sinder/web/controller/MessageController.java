@@ -28,7 +28,7 @@ public class MessageController {
     public List<MessageDto> openChat(@PathVariable Long userId,
                                      @PathVariable Long pairId) {
         List<Message> messages = messageService.retrieveAll(userId, pairId);
-        return messages.stream().map(messageMapper::toDto).toList();
+        return messageMapper.toDto(messages);
     }
 
     @PostMapping
