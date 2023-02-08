@@ -14,4 +14,11 @@ public interface PartyMatchService {
 
     PartyMatch update(PartyMatch partyMatch);
 
+    PartyMatch requestParty(Long userId, Long partyId);
+
+    PartyMatch skipParty(Long userId, Long partyId);
+
+    PartyMatch inviteGuest(Long partyId, Long guestId);
+
+    PartyMatch skipGuest(Long partyId, Long guestId);
 }

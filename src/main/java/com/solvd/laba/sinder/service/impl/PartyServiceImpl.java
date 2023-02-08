@@ -2,11 +2,8 @@ package com.solvd.laba.sinder.service.impl;
 
 import com.solvd.laba.sinder.domain.Party;
 import com.solvd.laba.sinder.domain.exception.ResourceNotFoundException;
-import com.solvd.laba.sinder.domain.partymatch.PartyMatch;
-import com.solvd.laba.sinder.domain.partymatch.PartyMatchStatus;
 import com.solvd.laba.sinder.domain.user.User;
 import com.solvd.laba.sinder.persistence.PartyRepository;
-import com.solvd.laba.sinder.service.PartyMatchService;
 import com.solvd.laba.sinder.service.PartyService;
 import com.solvd.laba.sinder.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -14,15 +11,12 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.Objects;
-
 @Service
 @RequiredArgsConstructor
 public class PartyServiceImpl implements PartyService {
 
     private final PartyRepository partyRepository;
     private final UserService userService;
-    private final PartyMatchService partyMatchService;
 
     @Override
     public Page<Party> retrievePartiesFor(Long guestId, Pageable pageable) {
@@ -41,36 +35,6 @@ public class PartyServiceImpl implements PartyService {
         Party party = retrieveById(partyId);
         party.setPublished(true);
         return partyRepository.save(party);
-    }
-
-    @Override
-    public PartyMatch requestParty(Long userId, Long partyId) {
-        User guest = userService.retrieveById(userId);
-        Party party = retrieveById(partyId);
-        PartyMatch partyMatch = PartyMatch.builder()
-                .status(PartyMatchStatus.REQUESTED)
-                .guest(guest)
-                .party(party)
-                .build();
-        return partyMatchService.create(partyMatch);
-    }
-
-    @Override
-    public PartyMatch skipParty(Long userId, Long partyId) {
-        User guest = userService.retrieveById(userId);
-        Party party = retrieveById(partyId);
-        if (partyMatchService.isExist(userId, partyId)) {
-            PartyMatch partyMatch = partyMatchService.retrieveByGuestIdAndPartyId(userId, partyId);
-            partyMatch.setStatus(PartyMatchStatus.REJECTED);
-            return partyMatchService.update(partyMatch);
-        } else {
-            PartyMatch partyMatch = PartyMatch.builder()
-                    .status(PartyMatchStatus.REJECTED)
-                    .guest(guest)
-                    .party(party)
-                    .build();
-            return partyMatchService.create(partyMatch);
-        }
     }
 
     @Override
@@ -100,4 +64,5 @@ public class PartyServiceImpl implements PartyService {
         foundParty.setPublished(party.getPublished());
         return partyRepository.save(foundParty);
     }
+
 }
