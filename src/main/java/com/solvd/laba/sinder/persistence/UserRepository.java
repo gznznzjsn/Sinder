@@ -1,31 +1,20 @@
 package com.solvd.laba.sinder.persistence;
 
 import com.solvd.laba.sinder.domain.user.User;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
+import java.time.LocalDate;
 import java.util.List;
 
-public interface UserRepository {
+@Repository
+public interface UserRepository extends JpaRepository<User, Long> {
 
-    List<User> findPairsFor(Long userId);
+//    List<User> findPairsFor(Long userId);
+    Page<User> findAllByPartyDates(List<LocalDate> partyDates, Pageable pageable);
 
-    List<User> findGuestsFor(Long partyId);
-
-    User findById(Long userId);
-
-    boolean isExist(String email);
-
-    void inviteGuest(Long partyId, Long guestId);
-
-    void skipGuest(Long partyId, Long guestId);
-
-    void likePair(Long userId, Long pairId);
-
-    void skipPair(Long userId, Long pairId);
-
-    void create(User user);
-
-    void update(User user);
-
-    void delete(Long userId);
+    Boolean existsByEmail(String email);
 
 }

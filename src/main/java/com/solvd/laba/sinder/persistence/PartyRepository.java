@@ -1,23 +1,14 @@
 package com.solvd.laba.sinder.persistence;
 
 import com.solvd.laba.sinder.domain.Party;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-import java.util.List;
+@Repository
+public interface PartyRepository extends JpaRepository<Party, Long> {
 
-public interface PartyRepository {
-
-    List<Party> findPartiesFor(Long userId);
-
-    Party findById(Long partyId);
-
-    void requestParty(Long guestId, Long partyId);
-
-    void skipParty(Long guestId, Long partyId);
-
-    void create(Party party);
-
-    void update(Party party);
-
-    void delete(Long partyId);
+    Page<Party> findAllByCreatorId(Long creatorId, Pageable pageable);
 
 }
