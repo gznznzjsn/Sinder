@@ -7,13 +7,12 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
-import java.util.List;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
 
 //    List<User> findPairsFor(Long userId);
-    Page<User> findAllByPartyDates(List<LocalDate> partyDates, Pageable pageable);
+    Page<User> findAllByPartyDates(LocalDate partyDate, Pageable pageable);
 
     Boolean existsByEmail(String email);
 
