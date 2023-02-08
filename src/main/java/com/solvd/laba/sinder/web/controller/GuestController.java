@@ -9,6 +9,9 @@ import com.solvd.laba.sinder.web.dto.UserDto;
 import com.solvd.laba.sinder.web.dto.mapper.PartyMatchMapper;
 import com.solvd.laba.sinder.web.dto.mapper.UserMapper;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -24,8 +27,10 @@ public class GuestController {
     private final PartyMatchMapper partyMatchMapper;
 
     @GetMapping()
-    public List<UserDto> getAppropriate(@PathVariable Long userId, @PathVariable Long partyId) {
-        List<User> guests = userService.retrieveGuestsFor(partyId);
+    public List<UserDto> getAppropriate(@PathVariable Long userId,
+                                        @PathVariable Long partyId,
+                                        @PageableDefault(size = 5) Pageable pageable) {
+        Page<User> guests = userService.retrieveGuestsFor(partyId, pageable);
         return guests.stream().map(userMapper::toDto).toList();
     }
 

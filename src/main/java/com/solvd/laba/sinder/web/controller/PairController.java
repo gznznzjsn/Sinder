@@ -9,6 +9,9 @@ import com.solvd.laba.sinder.web.dto.UserDto;
 import com.solvd.laba.sinder.web.dto.mapper.PairMatchMapper;
 import com.solvd.laba.sinder.web.dto.mapper.UserMapper;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -24,8 +27,8 @@ public class PairController {
     private final PairMatchMapper pairMatchMapper;
 
     @GetMapping
-    public List<UserDto> getAppropriate(@PathVariable Long userId) {
-        List<User> pairs = userService.retrievePairsFor(userId);
+    public List<UserDto> getAppropriate(@PathVariable Long userId,@PageableDefault(size = 5) Pageable pageable) {
+        Page<User> pairs = userService.retrievePairsFor(userId, pageable);
         return pairs.stream().map(userMapper::toDto).toList();
     }
 
