@@ -55,11 +55,11 @@ public class PartyMatchServiceImpl implements PartyMatchService {
 
     @Override
     @Transactional
-    public PartyMatch requestParty(Long userId, Long partyId) {
-        User guest = userService.retrieveById(userId);
+    public PartyMatch requestParty(Long guestId, Long partyId) {
+        User guest = userService.retrieveById(guestId);
         Party party = partyService.retrieveById(partyId);
-        if (isExist(userId, partyId)) {
-            PartyMatch partyMatch = retrieveByGuestIdAndPartyId(userId, partyId);
+        if (isExist(guestId, partyId)) {
+            PartyMatch partyMatch = retrieveByGuestIdAndPartyId(guestId, partyId);
             if (partyMatch.getStatus().equals(PartyMatchStatus.INVITED)) {
                 partyMatch.setStatus(PartyMatchStatus.APPROVED);
                 return update(partyMatch);
@@ -77,11 +77,11 @@ public class PartyMatchServiceImpl implements PartyMatchService {
 
     @Override
     @Transactional
-    public PartyMatch skipParty(Long userId, Long partyId) {
-        User guest = userService.retrieveById(userId);
+    public PartyMatch skipParty(Long guestId, Long partyId) {
+        User guest = userService.retrieveById(guestId);
         Party party = partyService.retrieveById(partyId);
-        if (isExist(userId, partyId)) {
-            PartyMatch partyMatch = retrieveByGuestIdAndPartyId(userId, partyId);
+        if (isExist(guestId, partyId)) {
+            PartyMatch partyMatch = retrieveByGuestIdAndPartyId(guestId, partyId);
             if (partyMatch.getStatus().equals(PartyMatchStatus.INVITED)) {
                 partyMatch.setStatus(PartyMatchStatus.REJECTED);
                 return update(partyMatch);
@@ -100,7 +100,22 @@ public class PartyMatchServiceImpl implements PartyMatchService {
     @Override
     @Transactional
     public PartyMatch inviteGuest(Long partyId, Long guestId) {
-        return null;
+        User guest = userService.retrieveById(guestId);
+        Party party = partyService.retrieveById(partyId);
+        if (isExist(guestId, partyId)) {
+            PartyMatch partyMatch = retrieveByGuestIdAndPartyId(guestId, partyId);
+            if (partyMatch.getStatus().equals(PartyMatchStatus.REQUESTED)) {
+                throw new IllegalActionException("You can't approve guest, who didn't request an invitation!");
+            }
+            partyMatch.setStatus(PartyMatchStatus.APPROVED);
+            return update(partyMatch);
+        }
+        PartyMatch partyMatch = PartyMatch.builder()
+                .status(PartyMatchStatus.INVITED)
+                .guest(guest)
+                .party(party)
+                .build();
+        return create(partyMatch);
     }
 
     @Override
