@@ -39,6 +39,7 @@ public class PartyServiceImpl implements PartyService {
     @Override
     @Transactional
     public Party create(Party party) {
+        party.setPublished(false);
         return partyRepository.save(party);
     }
 
