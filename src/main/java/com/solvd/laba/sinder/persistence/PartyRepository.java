@@ -10,9 +10,8 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface PartyRepository extends JpaRepository<Party, Long> {
 
-    //todo add case: if exists status (only invited)
     @Query(value = """
-            select *
+            select parties.*
             from parties
             inner join party_preferences_party_dates on party_preferences_party_dates.party_dates = parties.party_date
             inner join party_preferences on party_preferences.party_preference_id = party_preferences_party_dates.party_preferences_party_dates_party_preference_id

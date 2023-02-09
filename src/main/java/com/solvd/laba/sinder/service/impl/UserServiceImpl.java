@@ -21,7 +21,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Page<User> retrievePairsFor(Long userId, Pageable pageable) {
-        return null; //query
+        return userRepository.findPairsFor(userId,pageable);
     }
 
     @Override

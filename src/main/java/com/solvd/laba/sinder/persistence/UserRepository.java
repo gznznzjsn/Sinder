@@ -10,17 +10,37 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
 
-    //create this @Query
-    //Page<User> findPairsFor(Long userId, Pageable pageable);
+    @Query(value = """
+            with u as( select * from sinder.users
+            inner join pair_preferences pp on pp.pair_preference_id = users.user_pair_preference_id
+            inner join pair_preferences_genders ppg on pp.pair_preference_id = ppg.pair_preferences_genders_pair_preference_id
+            ), p as(
+            select * from sinder.users
+            inner join pair_preferences pp on pp.pair_preference_id = users.user_pair_preference_id
+            inner join pair_preferences_genders ppg on pp.pair_preference_id = ppg.pair_preferences_genders_pair_preference_id
+            )
+            select p.* from u inner join p
+            on u.genders=p.user_gender
+            and u.user_gender=p.genders
+            and u.user_id<>p.user_id
+            and u.pair_preference_goal=p.pair_preference_goal
+            and u.user_age between p.pair_preference_min_age and p.pair_preference_max_age
+            and p.user_age between u.pair_preference_min_age and u.pair_preference_max_age
+            and sqrt((p.user_latitude-u.user_latitude)*(p.user_latitude-u.user_latitude)+(p.user_longitude-u.user_longitude)*(p.user_longitude-u.user_longitude))<=least(u.radius,p.radius)
+            left join pair_matches pm on pm.pair_match_sender_id=p.user_id and pm.pair_match_receiver_id=u.user_id
+            where u.user_id=?1
+            and pm.pair_match_status is null or pair_match_status='REQUESTED'
+             ;""", nativeQuery = true)
+    Page<User> findPairsFor(Long userId, Pageable pageable);
 
     @Query(value = """
-            select *
+            select sinder.users.*
             from sinder.users
-                     inner join sinder.party_preferences on party_preferences.party_preference_id = users.user_party_preference_id
-                     inner join sinder.party_preferences_party_dates on party_preferences.party_preference_id =
-                                                                        party_preferences_party_dates.party_preferences_party_dates_party_preference_id
-                     inner join sinder.parties on party_preferences_party_dates.party_dates = parties.party_date
-                     left join party_matches pm on parties.party_id = pm.party_match_party_id and users.user_id = pm.party_match_guest_id
+            inner join sinder.party_preferences on party_preferences.party_preference_id = users.user_party_preference_id
+            inner join sinder.party_preferences_party_dates on party_preferences.party_preference_id =
+                                                               party_preferences_party_dates.party_preferences_party_dates_party_preference_id
+            inner join sinder.parties on party_preferences_party_dates.party_dates = parties.party_date
+            left join party_matches pm on parties.party_id = pm.party_match_party_id and users.user_id = pm.party_match_guest_id
             where parties.party_id = ?1
             and (party_match_status IS NULL or party_match_status='REQUESTED')""", nativeQuery = true)
     Page<User> findGuestsFor(Long partyId, Pageable pageable);
