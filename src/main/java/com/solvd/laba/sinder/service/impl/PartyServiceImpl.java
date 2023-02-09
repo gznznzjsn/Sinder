@@ -19,7 +19,7 @@ public class PartyServiceImpl implements PartyService {
 
     @Override
     public Page<Party> retrievePartiesFor(Long guestId, Pageable pageable) {
-        return null; //query
+        return partyRepository.findPartiesFor(guestId, pageable);
     }
 
     @Override

@@ -22,47 +22,48 @@ public class User implements UserDetails {
 
     @Id
     @GeneratedValue
+    @Column(name = "user_id")
     private Long id;
 
-    @Column(nullable = false, length = 50)
+    @Column(name = "user_name", nullable = false, length = 50)
     private String name;
 
-    @Column(nullable = false, unique = true, length = 50)
+    @Column(name = "user_email",nullable = false, unique = true, length = 50)
     private String email;
 
-    @Column(nullable = false, length = 50)
+    @Column(name = "user_surname",nullable = false, length = 50)
     private String surname;
 
-    @Column(nullable = false)
+    @Column(name = "user_password",nullable = false)
     private String password;
 
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
+    @Column(name = "user_gender", nullable = false)
     private Gender gender;
 
-    @Column(nullable = false)
+    @Column(name = "user_age",nullable = false)
     private Integer age;
 
-    @Column(nullable = false)
+    @Column(name = "user_description",nullable = false)
     private String description;
 
     @ManyToOne
-    @JoinColumn(name = "pair_preference_id", nullable = false)
+    @JoinColumn(name = "user_pair_preference_id", nullable = false)
     private PairPreference pairPreference;
 
     @ManyToOne
-    @JoinColumn(name = "party_preference_id", nullable = false)
+    @JoinColumn(name = "user_party_preference_id", nullable = false)
     private PartyPreference partyPreference;
 
     @Embedded
     @AttributeOverrides({
-            @AttributeOverride(name = "latitude", column = @Column(name = "latitude")),
-            @AttributeOverride(name = "longitude", column = @Column(name = "longitude"))
+            @AttributeOverride(name = "latitude", column = @Column(name = "user_latitude")),
+            @AttributeOverride(name = "longitude", column = @Column(name = "user_longitude"))
     })
     private Point geolocation;
 
     @ElementCollection
-    @CollectionTable(name = "users_photos", joinColumns = @JoinColumn(name = "user_id", nullable = false))
+    @CollectionTable(name = "users_photos", joinColumns = @JoinColumn(name = "users_photos_user_id", nullable = false))
     private List<String> photos;
 
     @Column(name = "phone_number", nullable = false)

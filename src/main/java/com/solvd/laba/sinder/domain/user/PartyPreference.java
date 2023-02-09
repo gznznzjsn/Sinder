@@ -19,10 +19,11 @@ public class PartyPreference {
 
     @Id
     @GeneratedValue
+    @Column(name = "party_preference_id")
     private Long id;
 
     @ElementCollection
-    @CollectionTable(name = "party_preferences_party_dates", joinColumns = @JoinColumn(name = "party_preference_id", nullable = false))
+    @CollectionTable(name = "party_preferences_party_dates", joinColumns = @JoinColumn(name = "party_preferences_party_dates_party_preference_id", nullable = false))
     private List<LocalDate> partyDates;
 
 }

@@ -17,18 +17,19 @@ public class PairMatch {
 
     @Id
     @GeneratedValue
+    @Column(name = "pair_match_id")
     private Long id;
 
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
+    @Column(name = "pair_match_status", nullable = false)
     private PairMatchStatus status;
 
     @ManyToOne
-    @JoinColumn(name = "sender_id", nullable = false)
+    @JoinColumn(name = "pair_match_sender_id", nullable = false)
     private User sender;
 
     @ManyToOne
-    @JoinColumn(name = "receiver_id", nullable = false)
+    @JoinColumn(name = "pair_match_receiver_id", nullable = false)
     private User receiver;
 
 }

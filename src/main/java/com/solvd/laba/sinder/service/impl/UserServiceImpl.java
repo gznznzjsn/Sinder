@@ -26,7 +26,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Page<User> retrieveGuestsFor(Long partyId, Pageable pageable) {
-        return null; //query
+        return userRepository.findGuestsFor(partyId, pageable);
     }
 
     @Override

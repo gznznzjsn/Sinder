@@ -18,18 +18,19 @@ public class PartyMatch {
 
     @Id
     @GeneratedValue
+    @Column(name = "party_match_id")
     private Long id;
 
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
+    @Column(name = "party_match_status", nullable = false)
     private PartyMatchStatus status;
 
     @ManyToOne
-    @JoinColumn(name = "guest_id", nullable = false)
+    @JoinColumn(name = "party_match_guest_id", nullable = false)
     private User guest;
 
     @ManyToOne
-    @JoinColumn(name = "party_id", nullable = false)
+    @JoinColumn(name = "party_match_party_id", nullable = false)
     private Party party;
 
 }
