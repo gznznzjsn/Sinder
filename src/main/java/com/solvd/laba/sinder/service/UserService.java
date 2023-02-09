@@ -18,4 +18,6 @@ public interface UserService {
 
     void delete(Long userId);
 
+    Boolean isExist(String email); //todo remove from interface ???
+
 }

@@ -30,7 +30,7 @@ public class PairController {
     @GetMapping
     public Page<UserDto> getAppropriate(@PathVariable Long userId,
                                         @PageableDefault(size = 5) Pageable pageable) { //reqParam page! Postman
-        Page<User> pairs = userService.retrievePairsFor(userId, pageable);
+        Page<User> pairs = userService.retrievePairsFor(userId, pageable); //create
         List<UserDto> pairsDto = userMapper.toDto(pairs.getContent());
         return new PageImpl<>(pairsDto);
     }

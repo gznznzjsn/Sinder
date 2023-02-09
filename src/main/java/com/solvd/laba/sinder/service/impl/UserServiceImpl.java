@@ -1,12 +1,11 @@
 package com.solvd.laba.sinder.service.impl;
 
-import com.solvd.laba.sinder.domain.Party;
 import com.solvd.laba.sinder.domain.exception.ResourceAlreadyExistsException;
 import com.solvd.laba.sinder.domain.exception.ResourceNotFoundException;
 import com.solvd.laba.sinder.domain.user.PairPreference;
+import com.solvd.laba.sinder.domain.user.PartyPreference;
 import com.solvd.laba.sinder.domain.user.User;
 import com.solvd.laba.sinder.persistence.UserRepository;
-import com.solvd.laba.sinder.service.PartyService;
 import com.solvd.laba.sinder.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -19,7 +18,6 @@ import org.springframework.transaction.annotation.Transactional;
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
-    private final PartyService partyService;
 
     @Override
     public Page<User> retrievePairsFor(Long userId, Pageable pageable) {
@@ -28,8 +26,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Page<User> retrieveGuestsFor(Long partyId, Pageable pageable) {
-        Party party = partyService.retrieveById(partyId);
-        return userRepository.findAllByPartyDates(party.getDate(), pageable);
+        return null; //query
     }
 
     @Override
@@ -41,7 +38,7 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public User create(User user) {
-        if (userRepository.existsByEmail(user.getEmail())) {
+        if (isExist(user.getEmail())) {
             throw new ResourceAlreadyExistsException("User with email = " + user.getEmail() + " already exists!");
         }
         return userRepository.save(user);
@@ -58,7 +55,6 @@ public class UserServiceImpl implements UserService {
         foundUser.setDescription(user.getDescription());
         foundUser.setGender(user.getGender());
         foundUser.setPhotos(user.getPhotos());
-        foundUser.setPartyDates(user.getPartyDates());
         foundUser.setPhoneNumber(user.getPhoneNumber());
         foundUser.setInstagramLink(user.getInstagramLink());
         foundUser.setFacebookLink(user.getFacebookLink());
@@ -69,6 +65,9 @@ public class UserServiceImpl implements UserService {
         pairPreference.setMaxAge(user.getPairPreference().getMaxAge());
         pairPreference.setRadius(user.getPairPreference().getRadius());
         foundUser.setPairPreference(pairPreference);
+        PartyPreference partyPreference = foundUser.getPartyPreference();
+        partyPreference.setPartyDates(user.getPartyPreference().getPartyDates());
+        foundUser.setPartyPreference(partyPreference);
         return userRepository.save(foundUser);
     }
 
@@ -78,4 +77,10 @@ public class UserServiceImpl implements UserService {
         User user = retrieveById(userId);
         userRepository.delete(user);
     }
+
+    @Override
+    public Boolean isExist(String email) {
+        return userRepository.existsByEmail(email);
+    }
+
 }

@@ -10,7 +10,6 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import org.hibernate.validator.constraints.Length;
 
-import java.time.LocalDate;
 import java.util.List;
 
 public record UserDto(
@@ -45,9 +44,6 @@ public record UserDto(
         @NotNull(groups = {OnUpdate.class}, message = "Photos can't be blank!")
         List<String> photos,
 
-        @NotNull(groups = {OnUpdate.class}, message = "Party dates can be empty, but can't be blank!")
-        List<LocalDate> partyDates,
-
         @Positive(groups = {OnUpdate.class}, message = "Phone number must be positive!")
         Integer phoneNumber,
 
@@ -56,6 +52,9 @@ public record UserDto(
 
         @Length(max = 50, groups = {OnUpdate.class}, message = "Facebook link must include maximum {max} characters!")
         String facebookLink,
+
+        @Valid
+        PartyPreferenceDto partyPreference,
 
         @Valid
         PairPreferenceDto pairPreference,

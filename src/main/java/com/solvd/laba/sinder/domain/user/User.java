@@ -9,7 +9,6 @@ import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.time.LocalDate;
 import java.util.Collection;
 import java.util.List;
 
@@ -51,6 +50,10 @@ public class User implements UserDetails {
     @JoinColumn(name = "pair_preference_id", nullable = false)
     private PairPreference pairPreference;
 
+    @ManyToOne
+    @JoinColumn(name = "party_preference_id", nullable = false)
+    private PartyPreference partyPreference;
+
     @Embedded
     @AttributeOverrides({
             @AttributeOverride(name = "latitude", column = @Column(name = "latitude")),
@@ -61,10 +64,6 @@ public class User implements UserDetails {
     @ElementCollection
     @CollectionTable(name = "users_photos", joinColumns = @JoinColumn(name = "user_id", nullable = false))
     private List<String> photos;
-
-    @ElementCollection
-    @CollectionTable(name = "users_party_dates", joinColumns = @JoinColumn(name = "user_id", nullable = false))
-    private List<LocalDate> partyDates;
 
     @Column(name = "phone_number", nullable = false)
     private Integer phoneNumber;

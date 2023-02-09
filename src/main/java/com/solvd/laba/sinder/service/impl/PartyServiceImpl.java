@@ -3,10 +3,8 @@ package com.solvd.laba.sinder.service.impl;
 import com.solvd.laba.sinder.domain.Party;
 import com.solvd.laba.sinder.domain.exception.IllegalActionException;
 import com.solvd.laba.sinder.domain.exception.ResourceNotFoundException;
-import com.solvd.laba.sinder.domain.user.User;
 import com.solvd.laba.sinder.persistence.PartyRepository;
 import com.solvd.laba.sinder.service.PartyService;
-import com.solvd.laba.sinder.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -18,12 +16,10 @@ import org.springframework.transaction.annotation.Transactional;
 public class PartyServiceImpl implements PartyService {
 
     private final PartyRepository partyRepository;
-    private final UserService userService;
 
     @Override
     public Page<Party> retrievePartiesFor(Long guestId, Pageable pageable) {
-        User guest = userService.retrieveById(guestId);
-        return partyRepository.findAllByDateIn(guest.getPartyDates(), pageable); //change query
+        return null; //query
     }
 
     @Override

@@ -8,7 +8,7 @@ public interface PartyMatchService {
 
     PartyMatch retrieveByGuestIdAndPartyId(Long guestId, Long partyId);
 
-    Boolean isExist(Long guestId, Long partyId);
+    Boolean isExist(Long guestId, Long partyId); //todo remove from interface ???
 
     PartyMatch create(PartyMatch partyMatch);
 

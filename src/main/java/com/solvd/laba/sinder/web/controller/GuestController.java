@@ -31,7 +31,7 @@ public class GuestController {
     public Page<UserDto> getAppropriate(@PathVariable Long userId,
                                         @PathVariable Long partyId,
                                         @PageableDefault(size = 5) Pageable pageable) { //reqParam page! Postman
-        Page<User> guests = userService.retrieveGuestsFor(partyId, pageable);
+        Page<User> guests = userService.retrieveGuestsFor(partyId, pageable); //create
         List<UserDto> guestsDto = userMapper.toDto(guests.getContent());
         return new PageImpl<>(guestsDto);
     }
@@ -41,7 +41,7 @@ public class GuestController {
                            @PathVariable String partyId,
                            @PathVariable Long guestId) {
         User guest = userService.retrieveById(guestId);
-        return userMapper.toDto(guest); //todo another dto
+        return userMapper.toDto(guest);
     }
 
     @PostMapping("/{guestId}/invite")
