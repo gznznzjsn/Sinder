@@ -8,6 +8,7 @@ import com.solvd.laba.sinder.web.dto.group.OnUpdate;
 import com.solvd.laba.sinder.web.dto.mapper.PartyMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,6 +20,7 @@ public class PartyController {
     private final PartyService partyService;
     private final PartyMapper partyMapper;
 
+    @PreAuthorize("@securityExpressions.hasParty(#userId,#partyId)")
     @GetMapping("/{partyId}")
     public PartyDto getById(@PathVariable Long userId,
                             @PathVariable Long partyId) {
@@ -26,6 +28,7 @@ public class PartyController {
         return partyMapper.toDto(party);
     }
 
+    @PreAuthorize("@securityExpressions.hasParty(#userId,#partyId)")
     @PostMapping("/{partyId}")
     public PartyDto publish(@PathVariable Long userId,
                             @PathVariable Long partyId) {
@@ -33,6 +36,7 @@ public class PartyController {
         return partyMapper.toDto(party);
     }
 
+    @PreAuthorize("@securityExpressions.hasUser(#userId)")
     @PostMapping()
     @ResponseStatus(HttpStatus.CREATED)
     public PartyDto create(@Validated(OnUpdate.class) @RequestBody PartyDto partyDto,
@@ -44,6 +48,7 @@ public class PartyController {
         return partyMapper.toDto(createdParty);
     }
 
+    @PreAuthorize("@securityExpressions.hasParty(#userId,#partyId)")
     @DeleteMapping("/{partyId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(@PathVariable Long userId,
@@ -51,6 +56,7 @@ public class PartyController {
         partyService.delete(partyId);
     }
 
+    @PreAuthorize("@securityExpressions.hasParty(#userId,#partyId)")
     @PutMapping("/{partyId}")
     public PartyDto update(@Validated(OnUpdate.class) @RequestBody PartyDto partyDto,
                            @PathVariable Long userId,

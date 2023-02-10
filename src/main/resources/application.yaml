@@ -14,11 +14,11 @@ spring:
       ddl-auto: update
     properties:
       hibernate:
-        dialect: org.hibernate.dialect.PostgreSQL95Dialect
+        dialect: org.hibernate.dialect.PostgreSQLDialect
 
 sinder:
   secrets:
     access-key: ${SINDER_SECRETS_ACCESS-KEY}
     refresh-key: ${SINDER_SECRETS_REFRESH-KEY}
     enable-key: ${SINDER_SECRETS_ENABLE-KEY}
-    password-refresh-key: ${SINDER_SECRETS_REFRESH-PASSWORD-KEY}
+    password-refresh-key: ${SINDER_SECRETS_PASSWORD-REFRESH-KEY}

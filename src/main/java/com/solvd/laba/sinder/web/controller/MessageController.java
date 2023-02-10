@@ -24,6 +24,7 @@ public class MessageController {
     private final MessageMapper messageMapper;
     private final AttachmentMapper attachmentMapper;
 
+    //todo
     @GetMapping
     public List<MessageDto> openChat(@PathVariable Long userId,
                                      @PathVariable Long pairId) {
@@ -31,6 +32,7 @@ public class MessageController {
         return messageMapper.toDto(messages);
     }
 
+    //todo
     @PostMapping
     public MessageDto send(@Validated(OnSend.class) @RequestBody MessageDto messageDto,
                            @Validated(OnSend.class) AttachmentDto attachmentDto,

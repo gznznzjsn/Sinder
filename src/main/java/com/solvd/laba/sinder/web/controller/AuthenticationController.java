@@ -6,6 +6,7 @@ import com.solvd.laba.sinder.web.dto.AuthEntityDto;
 import com.solvd.laba.sinder.web.dto.group.*;
 import com.solvd.laba.sinder.web.dto.mapper.AuthEntityMapper;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -40,7 +41,7 @@ public class AuthenticationController {
         return authEntityMapper.toDto(returnedAuthEntity);
     }
 
-    @PostMapping("/enable")
+    @GetMapping("/enable")
     public AuthEntityDto enable(@Validated(OnEnable.class) AuthEntityDto authEntityDto) {
         // enableToken
         AuthEntity authEntity = authEntityMapper.toEntity(authEntityDto);
@@ -48,12 +49,12 @@ public class AuthenticationController {
         return authEntityMapper.toDto(returnedAuthEntity);
     }
 
-    @PostMapping("/{userId}/password/request")
+    @PostMapping("/users/{userId}/password/request")
     public void requestPasswordRefresh(@PathVariable Long userId) {
         authenticationService.requestPasswordRefresh(userId);
     }
 
-    @PostMapping("/{userId}/password/refresh")
+    @PostMapping("/users/{userId}/password/refresh")
     public AuthEntityDto refreshPassword(@Validated(OnPasswordRefresh.class) @RequestBody AuthEntityDto authEntityDto,
                                          @PathVariable String userId) {
         // passwordRefreshToken, password
@@ -62,7 +63,8 @@ public class AuthenticationController {
         return authEntityMapper.toDto(returnedAuthEntity);
     }
 
-    @PostMapping("/{userId}/password/update")
+    @PreAuthorize("@securityExpressions.hasUser(#userId)")
+    @PostMapping("/users/{userId}/password/update")
     public AuthEntityDto updatePassword(@Validated(OnUpdatePassword.class) @RequestBody AuthEntityDto authEntityDto,
                                         @PathVariable Long userId) {
         // oldPassword, newPassword
