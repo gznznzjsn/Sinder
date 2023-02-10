@@ -29,12 +29,11 @@ public class PairMatchServiceImpl implements PairMatchService {
         }
         if (isExist(pairId, userId)) {
             PairMatch pairMatch = retrieveBySenderIdAndReceiverId(pairId, userId);
-            if (pairMatch.getStatus().equals(PairMatchStatus.REQUESTED)) {
-                pairMatch.setStatus(PairMatchStatus.REJECTED);
-                return update(pairMatch);
-            } else {
+            if (!pairMatch.getStatus().equals(PairMatchStatus.REQUESTED)) {
                 throw new IllegalActionException(""); //todo message
             }
+            pairMatch.setStatus(PairMatchStatus.REJECTED);
+            return update(pairMatch);
         }
         PairMatch pairMatch = PairMatch.builder()
                 .status(PairMatchStatus.REJECTED)
@@ -54,12 +53,11 @@ public class PairMatchServiceImpl implements PairMatchService {
         }
         if (isExist(pairId, userId)) {
             PairMatch pairMatch = retrieveBySenderIdAndReceiverId(pairId, userId);
-            if (pairMatch.getStatus().equals(PairMatchStatus.REQUESTED)) {
-                pairMatch.setStatus(PairMatchStatus.APPROVED);
-                return update(pairMatch);
-            } else {
+            if (!pairMatch.getStatus().equals(PairMatchStatus.REQUESTED)) {
                 throw new IllegalActionException(""); //todo message
             }
+            pairMatch.setStatus(PairMatchStatus.APPROVED);
+            return update(pairMatch);
         }
         PairMatch pairMatch = PairMatch.builder()
                 .status(PairMatchStatus.REQUESTED)

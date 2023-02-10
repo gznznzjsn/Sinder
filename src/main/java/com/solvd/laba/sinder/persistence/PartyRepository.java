@@ -18,8 +18,9 @@ public interface PartyRepository extends JpaRepository<Party, Long> {
             inner join users on users.user_party_preference_id = party_preferences.party_preference_id
             left join party_matches pm on parties.party_id = pm.party_match_party_id and users.user_id = pm.party_match_guest_id
             where users.user_id = ?1
+            and users.user_id<>parties.party_creator_id
             and parties.published = true
-            and party_match_status IS NULL or party_match_status='INVITED'
+            and party_match_status is null or party_match_status='INVITED';
             """, nativeQuery = true)
     Page<Party> findPartiesFor(Long userId, Pageable pageable);
 

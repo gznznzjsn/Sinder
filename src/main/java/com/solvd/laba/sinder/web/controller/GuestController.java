@@ -30,7 +30,7 @@ public class GuestController {
     @GetMapping()
     public Page<UserDto> getAppropriate(@PathVariable Long userId,
                                         @PathVariable Long partyId,
-                                        @PageableDefault(size = 5) Pageable pageable) { //reqParam page! Postman
+                                        @PageableDefault(size = 5) Pageable pageable) {
         Page<User> guests = userService.retrieveGuestsFor(partyId, pageable);
         List<UserDto> guestsDto = userMapper.toDto(guests.getContent());
         return new PageImpl<>(guestsDto);

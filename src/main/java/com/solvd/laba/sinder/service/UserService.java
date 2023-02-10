@@ -12,11 +12,16 @@ public interface UserService {
 
     User retrieveById(Long userId);
 
+    User retrieveByEmail(String email);
+
+    User enable(String email);
+
+    User updatePassword(Long userId, String newPassword);
+
     User create(User user);
 
     User update(User user);
 
     void delete(Long userId);
 
-    User getByEmail(String email);
 }

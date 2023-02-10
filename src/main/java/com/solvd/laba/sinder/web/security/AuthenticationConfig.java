@@ -19,7 +19,7 @@ public class AuthenticationConfig {
 
     @Bean
     public UserDetailsService userDetailsService() {
-        return userService::getByEmail;
+        return userService::retrieveByEmail;
     }
 
     @Bean

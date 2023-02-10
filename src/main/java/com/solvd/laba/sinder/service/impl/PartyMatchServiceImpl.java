@@ -61,12 +61,11 @@ public class PartyMatchServiceImpl implements PartyMatchService {
         Party party = partyService.retrieveById(partyId);
         if (isExist(guestId, partyId)) {
             PartyMatch partyMatch = retrieveByGuestIdAndPartyId(guestId, partyId);
-            if (partyMatch.getStatus().equals(PartyMatchStatus.INVITED)) {
-                partyMatch.setStatus(PartyMatchStatus.APPROVED);
-                return update(partyMatch);
-            } else {
+            if (!partyMatch.getStatus().equals(PartyMatchStatus.INVITED)) {
                 throw new IllegalActionException(""); //todo message
             }
+            partyMatch.setStatus(PartyMatchStatus.APPROVED);
+            return update(partyMatch);
         }
         PartyMatch partyMatch = PartyMatch.builder()
                 .status(PartyMatchStatus.REQUESTED)
@@ -83,12 +82,11 @@ public class PartyMatchServiceImpl implements PartyMatchService {
         Party party = partyService.retrieveById(partyId);
         if (isExist(guestId, partyId)) {
             PartyMatch partyMatch = retrieveByGuestIdAndPartyId(guestId, partyId);
-            if (partyMatch.getStatus().equals(PartyMatchStatus.INVITED)) {
-                partyMatch.setStatus(PartyMatchStatus.REJECTED);
-                return update(partyMatch);
-            } else {
+            if (!partyMatch.getStatus().equals(PartyMatchStatus.INVITED)) {
                 throw new IllegalActionException(""); //todo message
             }
+            partyMatch.setStatus(PartyMatchStatus.REJECTED);
+            return update(partyMatch);
         }
         PartyMatch partyMatch = PartyMatch.builder()
                 .status(PartyMatchStatus.REJECTED)
@@ -105,7 +103,7 @@ public class PartyMatchServiceImpl implements PartyMatchService {
         Party party = partyService.retrieveById(partyId);
         if (isExist(guestId, partyId)) {
             PartyMatch partyMatch = retrieveByGuestIdAndPartyId(guestId, partyId);
-            if (partyMatch.getStatus().equals(PartyMatchStatus.REQUESTED)) {
+            if (!partyMatch.getStatus().equals(PartyMatchStatus.REQUESTED)) {
                 throw new IllegalActionException("You can't approve guest, who didn't request an invitation!");
             }
             partyMatch.setStatus(PartyMatchStatus.APPROVED);
@@ -126,12 +124,11 @@ public class PartyMatchServiceImpl implements PartyMatchService {
         Party party = partyService.retrieveById(partyId);
         if (isExist(guestId, partyId)) {
             PartyMatch partyMatch = retrieveByGuestIdAndPartyId(guestId, partyId);
-            if (partyMatch.getStatus().equals(PartyMatchStatus.REQUESTED)) {
-                partyMatch.setStatus(PartyMatchStatus.REJECTED);
-                return update(partyMatch);
-            } else {
-                throw new IllegalActionException(""); //todo message
+            if (!partyMatch.getStatus().equals(PartyMatchStatus.REQUESTED)) {
+                throw new IllegalActionException("You can't skip guest, who didn't request an invitation!");
             }
+            partyMatch.setStatus(PartyMatchStatus.REJECTED);
+            return update(partyMatch);
         }
         PartyMatch partyMatch = PartyMatch.builder()
                 .status(PartyMatchStatus.REJECTED)

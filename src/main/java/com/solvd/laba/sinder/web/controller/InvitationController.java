@@ -29,8 +29,8 @@ public class InvitationController {
 
     @GetMapping
     public Page<PartyDto> getAppropriate(@PathVariable Long userId,
-                                         @PageableDefault(size = 5) Pageable pageable) { //reqParam page! Postman
-        Page<Party> parties = partyService.retrievePartiesFor(userId, pageable); //create
+                                         @PageableDefault(size = 5) Pageable pageable) {
+        Page<Party> parties = partyService.retrievePartiesFor(userId, pageable);
         List<PartyDto> partiesDto = partyMapper.toDto(parties.getContent());
         return new PageImpl<>(partiesDto);
     }

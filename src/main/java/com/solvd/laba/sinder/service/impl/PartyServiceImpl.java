@@ -56,7 +56,7 @@ public class PartyServiceImpl implements PartyService {
     @Transactional
     public Party update(Party party) {
         Party foundParty = retrieveById(party.getId());
-        if (!foundParty.getPublished()) {
+        if (foundParty.getPublished()) {
             throw new IllegalActionException(""); //todo message
         }
         foundParty.setName(party.getName());

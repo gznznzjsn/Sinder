@@ -7,30 +7,37 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
 
     @Query(value = """
-            with u as( select * from sinder.users
+            with u as( 
+            select * 
+            from sinder.users
             inner join pair_preferences pp on pp.pair_preference_id = users.user_pair_preference_id
             inner join pair_preferences_genders ppg on pp.pair_preference_id = ppg.pair_preferences_genders_pair_preference_id
             ), p as(
-            select * from sinder.users
+            select * 
+            from sinder.users
             inner join pair_preferences pp on pp.pair_preference_id = users.user_pair_preference_id
             inner join pair_preferences_genders ppg on pp.pair_preference_id = ppg.pair_preferences_genders_pair_preference_id
             )
-            select p.* from u inner join p
-            on u.genders=p.user_gender
-            and u.user_gender=p.genders
+            select p.* 
+            from u 
+            inner join p on u.genders = p.user_gender
+            and u.user_gender = p.genders
             and u.user_id<>p.user_id
-            and u.pair_preference_goal=p.pair_preference_goal
+            and u.pair_preference_goal = p.pair_preference_goal
             and u.user_age between p.pair_preference_min_age and p.pair_preference_max_age
             and p.user_age between u.pair_preference_min_age and u.pair_preference_max_age
             and sqrt((p.user_latitude-u.user_latitude)*(p.user_latitude-u.user_latitude)+(p.user_longitude-u.user_longitude)*(p.user_longitude-u.user_longitude))<=least(u.radius,p.radius)
-            left join pair_matches pm on pm.pair_match_sender_id=p.user_id and pm.pair_match_receiver_id=u.user_id
-            where u.user_id=?1
-            and pm.pair_match_status is null or pair_match_status='REQUESTED'
-             ;""", nativeQuery = true)
+            left join pair_matches pm on pm.pair_match_sender_id = p.user_id and pm.pair_match_receiver_id = u.user_id
+            where u.user_id = ?1
+            and p.enabled = true
+            and pm.pair_match_status is null or pair_match_status = 'REQUESTED';
+            """, nativeQuery = true)
     Page<User> findPairsFor(Long userId, Pageable pageable);
 
     @Query(value = """
@@ -42,9 +49,12 @@ public interface UserRepository extends JpaRepository<User, Long> {
             inner join sinder.parties on party_preferences_party_dates.party_dates = parties.party_date
             left join party_matches pm on parties.party_id = pm.party_match_party_id and users.user_id = pm.party_match_guest_id
             where parties.party_id = ?1
-            and (party_match_status IS NULL or party_match_status='REQUESTED')""", nativeQuery = true)
+            and (party_match_status is null or party_match_status='REQUESTED');
+            """, nativeQuery = true)
     Page<User> findGuestsFor(Long partyId, Pageable pageable);
 
     Boolean existsByEmail(String email);
+
+    Optional<User> findByEmail(String email);
 
 }
