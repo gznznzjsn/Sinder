@@ -16,7 +16,7 @@ public interface UserService {
 
     User enable(String email);
 
-    User updatePassword(Long userId, String newPassword);
+    User updatePassword(User user, String newPassword);
 
     User create(User user);
 

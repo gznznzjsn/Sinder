@@ -54,8 +54,9 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User updatePassword(Long userId, String newPassword) {
-        return null;
+    public User updatePassword(User user, String newPassword) {
+        user.setPassword(newPassword);
+        return userRepository.save(user);
     }
 
     @Override
