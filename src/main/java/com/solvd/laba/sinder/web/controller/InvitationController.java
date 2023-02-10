@@ -28,7 +28,7 @@ public class InvitationController {
     private final PartyMatchMapper partyMatchMapper;
     private final PartyMapper partyMapper;
 
-    @PreAuthorize("@securityExpressions.hasUser(#userId)")
+    @PreAuthorize("@securityExpressions.isUser(#userId)")
     @GetMapping
     public Page<PartyDto> getAppropriate(@PathVariable Long userId,
                                          @PageableDefault(size = 5) Pageable pageable) {
@@ -37,7 +37,7 @@ public class InvitationController {
         return new PageImpl<>(partiesDto);
     }
 
-    //todo
+    @PreAuthorize("@securityExpressions.isUser(#userId)")
     @GetMapping("/{partyId}")
     public PartyDto getById(@PathVariable Long userId,
                             @PathVariable Long partyId) {
@@ -45,7 +45,7 @@ public class InvitationController {
         return partyMapper.toDto(party);
     }
 
-    //todo
+    @PreAuthorize("@securityExpressions.isUser(#userId)")
     @PostMapping("/{partyId}/request")
     public PartyMatchDto request(@PathVariable Long userId,
                                  @PathVariable Long partyId) {
@@ -53,7 +53,7 @@ public class InvitationController {
         return partyMatchMapper.toDto(partyMatch);
     }
 
-    // todo
+    @PreAuthorize("@securityExpressions.isUser(#userId)")
     @PostMapping("/{partyId}/skip")
     public PartyMatchDto skip(@PathVariable Long userId,
                               @PathVariable Long partyId) {

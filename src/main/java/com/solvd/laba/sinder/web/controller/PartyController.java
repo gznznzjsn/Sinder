@@ -36,7 +36,7 @@ public class PartyController {
         return partyMapper.toDto(party);
     }
 
-    @PreAuthorize("@securityExpressions.hasUser(#userId)")
+    @PreAuthorize("@securityExpressions.isUser(#userId)")
     @PostMapping()
     @ResponseStatus(HttpStatus.CREATED)
     public PartyDto create(@Validated(OnUpdate.class) @RequestBody PartyDto partyDto,

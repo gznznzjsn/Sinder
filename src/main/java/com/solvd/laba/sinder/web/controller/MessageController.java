@@ -10,6 +10,7 @@ import com.solvd.laba.sinder.web.dto.group.OnSend;
 import com.solvd.laba.sinder.web.dto.mapper.AttachmentMapper;
 import com.solvd.laba.sinder.web.dto.mapper.MessageMapper;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,7 +25,10 @@ public class MessageController {
     private final MessageMapper messageMapper;
     private final AttachmentMapper attachmentMapper;
 
-    //todo
+    @PreAuthorize("""
+            @securityExpressions.isUser(#userId)
+            && @securityExpressions.isPair(#userId,#pairId)
+            """)
     @GetMapping
     public List<MessageDto> openChat(@PathVariable Long userId,
                                      @PathVariable Long pairId) {
@@ -32,7 +36,10 @@ public class MessageController {
         return messageMapper.toDto(messages);
     }
 
-    //todo
+    @PreAuthorize("""
+            @securityExpressions.isUser(#userId)
+            && @securityExpressions.isPair(#userId,#pairId)
+            """)
     @PostMapping
     public MessageDto send(@Validated(OnSend.class) @RequestBody MessageDto messageDto,
                            @Validated(OnSend.class) AttachmentDto attachmentDto,

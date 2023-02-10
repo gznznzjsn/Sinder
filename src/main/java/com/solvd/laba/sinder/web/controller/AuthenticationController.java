@@ -59,11 +59,11 @@ public class AuthenticationController {
                                          @PathVariable String userId) {
         // passwordRefreshToken, password
         AuthEntity authEntity = authEntityMapper.toEntity(authEntityDto);
-        AuthEntity returnedAuthEntity = authenticationService.refreshPassword(authEntity);
+        AuthEntity returnedAuthEntity = authenticationService.refreshPassword(authEntity); // TODO: 10.02.23  add userId
         return authEntityMapper.toDto(returnedAuthEntity);
     }
 
-    @PreAuthorize("@securityExpressions.hasUser(#userId)")
+    @PreAuthorize("@securityExpressions.isUser(#userId)")
     @PostMapping("/users/{userId}/password/update")
     public AuthEntityDto updatePassword(@Validated(OnUpdatePassword.class) @RequestBody AuthEntityDto authEntityDto,
                                         @PathVariable Long userId) {

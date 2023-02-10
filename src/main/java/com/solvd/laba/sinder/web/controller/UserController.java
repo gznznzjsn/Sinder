@@ -19,21 +19,21 @@ public class UserController {
     private final UserService userService;
     private final UserMapper userMapper;
 
-    @PreAuthorize("@securityExpressions.hasUser(#userId)")
+    @PreAuthorize("@securityExpressions.isUser(#userId)")
     @GetMapping("/{userId}")
     public UserDto getById(@PathVariable Long userId) {
         User user = userService.retrieveById(userId);
         return userMapper.toDto(user);
     }
 
-    @PreAuthorize("@securityExpressions.hasUser(#userId)")
+    @PreAuthorize("@securityExpressions.isUser(#userId)")
     @DeleteMapping("/{userId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(@PathVariable Long userId) {
         userService.delete(userId);
     }
 
-    @PreAuthorize("@securityExpressions.hasUser(#userId)")
+    @PreAuthorize("@securityExpressions.isUser(#userId)")
     @PutMapping("/{userId}")
     public UserDto update(@Validated(OnUpdate.class) @RequestBody UserDto userDto,
                           @PathVariable Long userId) {
