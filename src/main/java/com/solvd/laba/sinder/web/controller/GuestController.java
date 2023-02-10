@@ -13,6 +13,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -27,6 +28,7 @@ public class GuestController {
     private final UserMapper userMapper;
     private final PartyMatchMapper partyMatchMapper;
 
+    @PreAuthorize("@securityExpressions.hasParty(#userId,#partyId)")
     @GetMapping()
     public Page<UserDto> getAppropriate(@PathVariable Long userId,
                                         @PathVariable Long partyId,
@@ -36,6 +38,7 @@ public class GuestController {
         return new PageImpl<>(guestsDto);
     }
 
+    //todo
     @GetMapping("/{guestId}")
     public UserDto getById(@PathVariable Long userId,
                            @PathVariable String partyId,
@@ -44,6 +47,7 @@ public class GuestController {
         return userMapper.toDto(guest);
     }
 
+    //todo
     @PostMapping("/{guestId}/invite")
     public PartyMatchDto invite(@PathVariable Long userId,
                                 @PathVariable Long partyId,
@@ -52,6 +56,7 @@ public class GuestController {
         return partyMatchMapper.toDto(partyMatch);
     }
 
+    //todo
     @PostMapping("/{guestId}/skip")
     public PartyMatchDto skip(@PathVariable Long userId,
                               @PathVariable Long partyId,

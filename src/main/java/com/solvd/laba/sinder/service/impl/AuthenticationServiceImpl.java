@@ -21,6 +21,8 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     private final PasswordEncoder passwordEncoder;
     private final JwtManager accessJwtManager;
     private final JwtManager refreshJwtManager;
+    private final JwtManager passwordRefreshJwtManager;
+    private final JwtManager enableJwtManager;
     private final AuthenticationManager authenticationManager;
 
     @Override

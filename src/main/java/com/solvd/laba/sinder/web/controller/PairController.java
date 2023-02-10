@@ -13,6 +13,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -27,6 +28,7 @@ public class PairController {
     private final PairMatchService pairMatchService;
     private final PairMatchMapper pairMatchMapper;
 
+    @PreAuthorize("@securityExpressions.hasUser(#userId)")
     @GetMapping
     public Page<UserDto> getAppropriate(@PathVariable Long userId,
                                         @PageableDefault(size = 5) Pageable pageable) {
@@ -35,6 +37,7 @@ public class PairController {
         return new PageImpl<>(pairsDto);
     }
 
+    //todo
     @GetMapping("/{pairId}")
     public UserDto getById(@PathVariable Long userId,
                            @PathVariable Long pairId) {
@@ -42,6 +45,7 @@ public class PairController {
         return userMapper.toDto(pair);
     }
 
+    //todo
     @PostMapping("/{pairId}/like")
     public PairMatchDto like(@PathVariable Long userId,
                              @PathVariable Long pairId) {
@@ -49,6 +53,7 @@ public class PairController {
         return pairMatchMapper.toDto(pairMatch);
     }
 
+    //todo
     @PostMapping("/{pairId}/skip")
     public PairMatchDto skip(@PathVariable Long userId,
                              @PathVariable Long pairId) {
