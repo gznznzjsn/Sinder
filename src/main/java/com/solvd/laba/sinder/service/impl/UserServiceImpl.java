@@ -20,16 +20,19 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
 
     @Override
+    @Transactional(readOnly = true)
     public Page<User> retrievePairsFor(Long userId, Pageable pageable) {
         return userRepository.findPairsFor(userId,pageable);
     }
 
     @Override
+    @Transactional(readOnly = true)
     public Page<User> retrieveGuestsFor(Long partyId, Pageable pageable) {
         return userRepository.findGuestsFor(partyId, pageable);
     }
 
     @Override
+    @Transactional(readOnly = true)
     public User retrieveById(Long userId) {
         return userRepository.findById(userId)
                 .orElseThrow(() -> new ResourceNotFoundException("User with id = " + userId + " not found!"));
@@ -74,12 +77,16 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public void delete(Long userId) {
-        User user = retrieveById(userId);
-        userRepository.delete(user);
+        userRepository.deleteById(userId);
     }
 
     @Override
-    public Boolean isExist(String email) {
+    @Transactional(readOnly = true)
+    public User getByEmail(String email) {
+        return null; //todo
+    }
+
+    private Boolean isExist(String email) {
         return userRepository.existsByEmail(email);
     }
 

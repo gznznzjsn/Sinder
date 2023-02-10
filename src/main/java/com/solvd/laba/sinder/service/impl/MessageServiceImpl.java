@@ -20,6 +20,7 @@ public class MessageServiceImpl implements MessageService {
     private final MessageRepository messageRepository;
 
     @Override
+    @Transactional(readOnly = true)
     public List<Message> retrieveAll(Long userId, Long pairId) {
         return messageRepository.findAllBySenderIdAndReceiverIdOrSenderIdAndReceiverId(userId, pairId, pairId, userId);
     }

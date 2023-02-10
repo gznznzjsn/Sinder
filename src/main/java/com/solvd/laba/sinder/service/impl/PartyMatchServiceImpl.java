@@ -23,19 +23,20 @@ public class PartyMatchServiceImpl implements PartyMatchService {
     private final UserService userService;
 
     @Override
+    @Transactional(readOnly = true)
     public PartyMatch retrieveById(Long partyMatchId) {
         return partyMatchRepository.findById(partyMatchId)
                 .orElseThrow(() -> new ResourceNotFoundException("PartyMatch with id = " + partyMatchId + " not found!"));
     }
 
     @Override
+    @Transactional(readOnly = true)
     public PartyMatch retrieveByGuestIdAndPartyId(Long guestId, Long partyId) {
         return partyMatchRepository.findByGuestIdAndPartyId(guestId, partyId)
                 .orElseThrow(() -> new ResourceNotFoundException("PartyMatch with guest's id = " + guestId + " and party's id = " + partyId + " not found!"));
     }
 
-    @Override
-    public Boolean isExist(Long guestId, Long partyId) {
+    private Boolean isExist(Long guestId, Long partyId) {
         return partyMatchRepository.existsByGuestIdAndPartyId(guestId, partyId);
     }
 

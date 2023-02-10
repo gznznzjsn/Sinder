@@ -8,8 +8,6 @@ public interface PairMatchService {
 
     PairMatch retrieveBySenderIdAndReceiverId(Long userId, Long pairId);
 
-    Boolean isExist(Long userId, Long pairId); //todo remove from interface ???
-
     PairMatch skipPair(Long userId, Long pairId);
 
     PairMatch likePair(Long userId, Long pairId);

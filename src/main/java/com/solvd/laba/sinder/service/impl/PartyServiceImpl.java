@@ -18,11 +18,13 @@ public class PartyServiceImpl implements PartyService {
     private final PartyRepository partyRepository;
 
     @Override
+    @Transactional(readOnly = true)
     public Page<Party> retrievePartiesFor(Long guestId, Pageable pageable) {
         return partyRepository.findPartiesFor(guestId, pageable);
     }
 
     @Override
+    @Transactional(readOnly = true)
     public Party retrieveById(Long partyId) {
         return partyRepository.findById(partyId)
                 .orElseThrow(() -> new ResourceNotFoundException("Party with id = " + partyId + " not found!"));

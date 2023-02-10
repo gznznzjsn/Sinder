@@ -9,7 +9,7 @@ public record PointDto(
         //todo
         Double latitude,
 
-        @NotNull(groups = {OnUpdate.class}, message = "Longtitude can't be blank!")
+        @NotNull(groups = {OnUpdate.class}, message = "Longitude can't be blank!")
         //todo
         Double longitude
 
