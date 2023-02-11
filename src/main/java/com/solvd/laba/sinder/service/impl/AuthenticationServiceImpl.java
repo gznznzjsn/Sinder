@@ -6,9 +6,9 @@ import com.solvd.laba.sinder.domain.user.User;
 import com.solvd.laba.sinder.service.AuthenticationService;
 import com.solvd.laba.sinder.service.UserService;
 import com.solvd.laba.sinder.web.security.manager.JwtManager;
+import com.solvd.laba.sinder.web.security.property.MailProperty;
 import io.jsonwebtoken.Claims;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -29,10 +29,8 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     private final JwtManager enableJwtManager;
     private final JwtManager passwordRefreshJwtManager;
     private final AuthenticationManager authenticationManager;
-    private JavaMailSender mailSender;
-
-    @Value("${spring.mail.username}")
-    private String username;
+    private final JavaMailSender mailSender;
+    private final MailProperty mailProperty;
 
     @Override
     @Transactional
@@ -132,7 +130,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
     private void sendMessage(String receiver, String subject, String message){
         SimpleMailMessage mailMessage = new SimpleMailMessage();
-        mailMessage.setFrom(username);
+        mailMessage.setFrom(mailProperty.getUsername());
         mailMessage.setTo(receiver);
         mailMessage.setSubject(subject);
         mailMessage.setText(message); //template's text

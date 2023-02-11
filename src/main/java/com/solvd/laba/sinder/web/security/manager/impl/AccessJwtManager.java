@@ -1,12 +1,14 @@
 package com.solvd.laba.sinder.web.security.manager.impl;
 
 import com.solvd.laba.sinder.web.security.manager.JwtManager;
+import com.solvd.laba.sinder.web.security.property.JwtProperty;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
-import org.springframework.beans.factory.annotation.Value;
+import jakarta.annotation.PostConstruct;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
@@ -15,13 +17,15 @@ import java.util.Date;
 import java.util.function.Function;
 
 @Component
+@RequiredArgsConstructor
 public class AccessJwtManager implements JwtManager {
 
     private static Key accessKey;
+    private final JwtProperty jwtProperty;
 
-    @Value("${sinder.secrets.access-key}")
-    public void setAccessKey(String key) {
-        accessKey = Keys.hmacShaKeyFor(Decoders.BASE64.decode(key));
+    @PostConstruct
+    private void setAccessKey() {
+        accessKey = Keys.hmacShaKeyFor(Decoders.BASE64.decode(jwtProperty.getAccessKey()));
     }
 
     @Override
@@ -31,7 +35,7 @@ public class AccessJwtManager implements JwtManager {
                 .claim("role", userDetails.getAuthorities())
                 .setSubject(userDetails.getUsername())
                 .setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60))
+                .setExpiration(new Date(System.currentTimeMillis() + 1000L * jwtProperty.getAccessExpirationTime()))
                 .signWith(accessKey, SignatureAlgorithm.HS256)
                 .compact();
     }
