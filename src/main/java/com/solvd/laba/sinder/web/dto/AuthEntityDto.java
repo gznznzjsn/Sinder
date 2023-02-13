@@ -17,9 +17,9 @@ public record AuthEntityDto(
         @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
         String surname,
 
-        @NotBlank(groups = {OnRegister.class, OnLogin.class}, message = "Email can't be blank!")
-        @Email(groups = {OnRegister.class, OnLogin.class}, message = "Not an email!")
-        @Length(min = 6, max = 50, groups = {OnRegister.class, OnLogin.class}, message = "Email must include minimum {min} and maximum {max} characters!")
+        @NotBlank(groups = {OnRegister.class, OnLogin.class, OnRequestPasswordRefresh.class, OnPasswordRefresh.class}, message = "Email can't be blank!")
+        @Email(groups = {OnRegister.class, OnLogin.class, OnRequestPasswordRefresh.class, OnPasswordRefresh.class}, message = "Not an email!")
+        @Length(min = 6, max = 50, groups = {OnRegister.class, OnLogin.class, OnRequestPasswordRefresh.class, OnPasswordRefresh.class}, message = "Email must include minimum {min} and maximum {max} characters!")
         @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
         String email,
 

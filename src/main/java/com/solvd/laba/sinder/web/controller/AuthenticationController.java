@@ -49,17 +49,17 @@ public class AuthenticationController {
         return authEntityMapper.toDto(returnedAuthEntity);
     }
 
-    @PostMapping("/users/{userId}/password/request")
-    public void requestPasswordRefresh(@PathVariable Long userId) {
-        authenticationService.requestPasswordRefresh(userId);
+    @PostMapping("/password/request")
+    public void requestPasswordRefresh(@Validated(OnRequestPasswordRefresh.class) @RequestBody AuthEntityDto authEntityDto) {
+        //email
+        authenticationService.requestPasswordRefresh(authEntityDto);
     }
 
-    @PostMapping("/users/{userId}/password/refresh")
-    public AuthEntityDto refreshPassword(@Validated(OnPasswordRefresh.class) @RequestBody AuthEntityDto authEntityDto,
-                                         @PathVariable String userId) {
-        // passwordRefreshToken, password
+    @PostMapping("/password/refresh")
+    public AuthEntityDto refreshPassword(@Validated(OnPasswordRefresh.class) @RequestBody AuthEntityDto authEntityDto) {
+        // passwordRefreshToken, password, email
         AuthEntity authEntity = authEntityMapper.toEntity(authEntityDto);
-        AuthEntity returnedAuthEntity = authenticationService.refreshPassword(authEntity); // TODO: 10.02.23  add userId
+        AuthEntity returnedAuthEntity = authenticationService.refreshPassword(authEntity);
         return authEntityMapper.toDto(returnedAuthEntity);
     }
 
