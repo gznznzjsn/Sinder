@@ -15,12 +15,12 @@ public interface UserRepository extends JpaRepository<User, Long> {
     @Query(value = """
             with u as( 
             select * 
-            from sinder.users
+            from users
             inner join pair_preferences pp on pp.pair_preference_id = users.user_pair_preference_id
             inner join pair_preferences_genders ppg on pp.pair_preference_id = ppg.pair_preferences_genders_pair_preference_id
             ), p as(
             select * 
-            from sinder.users
+            from users
             inner join pair_preferences pp on pp.pair_preference_id = users.user_pair_preference_id
             inner join pair_preferences_genders ppg on pp.pair_preference_id = ppg.pair_preferences_genders_pair_preference_id
             )
@@ -41,12 +41,12 @@ public interface UserRepository extends JpaRepository<User, Long> {
     Page<User> findPairsFor(Long userId, Pageable pageable);
 
     @Query(value = """
-            select sinder.users.*
-            from sinder.users
-            inner join sinder.party_preferences on party_preferences.party_preference_id = users.user_party_preference_id
-            inner join sinder.party_preferences_party_dates on party_preferences.party_preference_id =
+            select users.*
+            from users
+            inner join party_preferences on party_preferences.party_preference_id = users.user_party_preference_id
+            inner join party_preferences_party_dates on party_preferences.party_preference_id =
                                                                party_preferences_party_dates.party_preferences_party_dates_party_preference_id
-            inner join sinder.parties on party_preferences_party_dates.party_dates = parties.party_date
+            inner join parties on party_preferences_party_dates.party_dates = parties.party_date
             left join party_matches pm on parties.party_id = pm.party_match_party_id and users.user_id = pm.party_match_guest_id
             where parties.party_id = ?1
             and (party_match_status is null or party_match_status='REQUESTED');

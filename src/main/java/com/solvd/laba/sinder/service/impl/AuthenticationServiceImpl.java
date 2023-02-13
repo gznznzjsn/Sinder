@@ -42,8 +42,8 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         user = userService.create(user);
         String enableJwt = enableJwtManager.generateToken(user);
         String subject = "Enable profile";
-        mailService.sendMail();
-        // todo send email
+        String link = "http://localhost:8080/api/v1/authentication/enable?enableToken=" + enableJwt;
+        mailService.sendMail(user, "registerUser.ftl", subject, link);
     }
 
     @Override
@@ -96,8 +96,8 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         User user = userService.retrieveByEmail(authEntity.getEmail());
         String refreshPasswordJwt = passwordRefreshJwtManager.generateToken(user);
         String subject = "Refresh password";
-        mailService.sendMail();
-        // todo send email
+        String link = "http://localhost:8080/api/v1/authentication/password/request?passwordRefreshToken=" + refreshPasswordJwt;
+        mailService.sendMail(user, "refreshPassword.ftl", subject, link);
     }
 
     @Override
