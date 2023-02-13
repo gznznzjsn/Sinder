@@ -12,7 +12,7 @@ public interface AuthenticationService {
 
     AuthEntity enable(AuthEntity authEntity);
 
-    void requestPasswordRefresh(Long userId);
+    void requestPasswordRefresh(AuthEntity authEntity);
 
     AuthEntity refreshPassword(AuthEntity authEntity);
 
