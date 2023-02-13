@@ -41,7 +41,6 @@ public class PartyController {
     @ResponseStatus(HttpStatus.CREATED)
     public PartyDto create(@Validated(OnUpdate.class) @RequestBody PartyDto partyDto,
                            @PathVariable Long userId) {
-        // name, description, geolocation, photos, date, dressCode, capacity, minAge, maxAge
         Party party = partyMapper.toEntity(partyDto);
         party.setCreator(User.builder().id(userId).build());
         Party createdParty = partyService.create(party);
@@ -61,7 +60,6 @@ public class PartyController {
     public PartyDto update(@Validated(OnUpdate.class) @RequestBody PartyDto partyDto,
                            @PathVariable Long userId,
                            @PathVariable Long partyId) { //do not use, if already published
-        // name, description, geolocation, photos, date, dressCode, capacity, minAge, maxAge
         Party party = partyMapper.toEntity(partyDto);
         party.setId(partyId);
         Party updatedParty = partyService.update(party);
