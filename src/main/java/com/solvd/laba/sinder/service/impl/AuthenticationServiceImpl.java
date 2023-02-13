@@ -92,8 +92,8 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
     @Override
     @Transactional(readOnly = true)
-    public void requestPasswordRefresh(Long userId) {
-        User user = userService.retrieveById(userId);
+    public void requestPasswordRefresh(AuthEntity authEntity) {
+        User user = userService.retrieveByEmail(authEntity.getEmail());
         String refreshPasswordJwt = passwordRefreshJwtManager.generateToken(user);
         String subject = "Refresh password";
         mailService.sendMail();

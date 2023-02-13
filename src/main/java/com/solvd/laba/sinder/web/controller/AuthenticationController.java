@@ -52,12 +52,13 @@ public class AuthenticationController {
     @PostMapping("/password/request")
     public void requestPasswordRefresh(@Validated(OnRequestPasswordRefresh.class) @RequestBody AuthEntityDto authEntityDto) {
         //email
-        authenticationService.requestPasswordRefresh(authEntityDto);
+        AuthEntity authEntity = authEntityMapper.toEntity(authEntityDto);
+        authenticationService.requestPasswordRefresh(authEntity);
     }
 
     @PostMapping("/password/refresh")
     public AuthEntityDto refreshPassword(@Validated(OnPasswordRefresh.class) @RequestBody AuthEntityDto authEntityDto) {
-        // passwordRefreshToken, password, email
+        // passwordRefreshToken, password
         AuthEntity authEntity = authEntityMapper.toEntity(authEntityDto);
         AuthEntity returnedAuthEntity = authenticationService.refreshPassword(authEntity);
         return authEntityMapper.toDto(returnedAuthEntity);
