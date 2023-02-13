@@ -28,7 +28,7 @@ public class PairController {
     private final PairMatchService pairMatchService;
     private final PairMatchMapper pairMatchMapper;
 
-    @PreAuthorize("@securityExpressions.hasUser(#userId)")
+    @PreAuthorize("@securityExpressions.isUser(#userId)")
     @GetMapping
     public Page<UserDto> getAppropriate(@PathVariable Long userId,
                                         @PageableDefault(size = 5) Pageable pageable) {
@@ -37,7 +37,7 @@ public class PairController {
         return new PageImpl<>(pairsDto);
     }
 
-    //todo
+    @PreAuthorize("@securityExpressions.isUser(#userId)")
     @GetMapping("/{pairId}")
     public UserDto getById(@PathVariable Long userId,
                            @PathVariable Long pairId) {
@@ -45,7 +45,7 @@ public class PairController {
         return userMapper.toDto(pair);
     }
 
-    //todo
+    @PreAuthorize("@securityExpressions.isUser(#userId)")
     @PostMapping("/{pairId}/like")
     public PairMatchDto like(@PathVariable Long userId,
                              @PathVariable Long pairId) {
@@ -53,7 +53,7 @@ public class PairController {
         return pairMatchMapper.toDto(pairMatch);
     }
 
-    //todo
+    @PreAuthorize("@securityExpressions.isUser(#userId)")
     @PostMapping("/{pairId}/skip")
     public PairMatchDto skip(@PathVariable Long userId,
                              @PathVariable Long pairId) {
