@@ -42,7 +42,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         user = userService.create(user);
         String enableJwt = enableJwtManager.generateToken(user);
         String subject = "Enable profile";
-        mailService.sendMail();
+//        mailService.sendMail();
         // todo send email
     }
 
@@ -96,7 +96,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         User user = userService.retrieveByEmail(authEntity.getEmail());
         String refreshPasswordJwt = passwordRefreshJwtManager.generateToken(user);
         String subject = "Refresh password";
-        mailService.sendMail();
+//        mailService.sendMail();
         // todo send email
     }
 
