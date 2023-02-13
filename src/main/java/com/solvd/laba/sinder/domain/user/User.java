@@ -38,21 +38,21 @@ public class User implements UserDetails {
     private String password;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "user_gender", nullable = false)
+    @Column(name = "user_gender")
     private Gender gender;
 
-    @Column(name = "user_age",nullable = false)
+    @Column(name = "user_age")
     private Integer age;
 
-    @Column(name = "user_description",nullable = false)
+    @Column(name = "user_description")
     private String description;
 
     @ManyToOne
-    @JoinColumn(name = "user_pair_preference_id", nullable = false)
+    @JoinColumn(name = "user_pair_preference_id")
     private PairPreference pairPreference;
 
     @ManyToOne
-    @JoinColumn(name = "user_party_preference_id", nullable = false)
+    @JoinColumn(name = "user_party_preference_id")
     private PartyPreference partyPreference;
 
     @Embedded
@@ -63,10 +63,10 @@ public class User implements UserDetails {
     private Point geolocation;
 
     @ElementCollection
-    @CollectionTable(name = "users_photos", joinColumns = @JoinColumn(name = "users_photos_user_id", nullable = false))
+    @CollectionTable(name = "users_photos", joinColumns = @JoinColumn(name = "users_photos_user_id"))
     private List<String> photos;
 
-    @Column(name = "phone_number", nullable = false)
+    @Column(name = "phone_number")
     private Integer phoneNumber;
 
     @Column(name = "instagram_link")

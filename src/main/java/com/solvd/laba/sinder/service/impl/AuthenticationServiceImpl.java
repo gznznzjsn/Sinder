@@ -4,13 +4,11 @@ import com.solvd.laba.sinder.domain.exception.InvalidPasswordException;
 import com.solvd.laba.sinder.domain.user.AuthEntity;
 import com.solvd.laba.sinder.domain.user.User;
 import com.solvd.laba.sinder.service.AuthenticationService;
+import com.solvd.laba.sinder.service.MailService;
 import com.solvd.laba.sinder.service.UserService;
 import com.solvd.laba.sinder.web.security.manager.JwtManager;
-import com.solvd.laba.sinder.web.security.property.MailProperty;
 import io.jsonwebtoken.Claims;
 import lombok.RequiredArgsConstructor;
-import org.springframework.mail.SimpleMailMessage;
-import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.bcrypt.BCrypt;
@@ -23,14 +21,13 @@ import org.springframework.transaction.annotation.Transactional;
 public class AuthenticationServiceImpl implements AuthenticationService {
 
     private final UserService userService;
+    private final MailService mailService;
     private final PasswordEncoder passwordEncoder;
     private final JwtManager accessJwtManager;
     private final JwtManager refreshJwtManager;
     private final JwtManager enableJwtManager;
     private final JwtManager passwordRefreshJwtManager;
     private final AuthenticationManager authenticationManager;
-    private final JavaMailSender mailSender;
-    private final MailProperty mailProperty;
 
     @Override
     @Transactional
@@ -40,9 +37,12 @@ public class AuthenticationServiceImpl implements AuthenticationService {
                 .surname(authEntity.getSurname())
                 .email(authEntity.getEmail())
                 .password(passwordEncoder.encode(authEntity.getPassword()))
+                .enabled(false)
                 .build();
         user = userService.create(user);
         String enableJwt = enableJwtManager.generateToken(user);
+        String subject = "Enable profile";
+        mailService.sendMail();
         // todo send email
     }
 
@@ -95,6 +95,8 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     public void requestPasswordRefresh(Long userId) {
         User user = userService.retrieveById(userId);
         String refreshPasswordJwt = passwordRefreshJwtManager.generateToken(user);
+        String subject = "Refresh password";
+        mailService.sendMail();
         // todo send email
     }
 
@@ -126,15 +128,6 @@ public class AuthenticationServiceImpl implements AuthenticationService {
                 .accessToken(accessJwt)
                 .refreshToken(refreshJwt)
                 .build();
-    }
-
-    private void sendMessage(String receiver, String subject, String message){
-        SimpleMailMessage mailMessage = new SimpleMailMessage();
-        mailMessage.setFrom(mailProperty.getUsername());
-        mailMessage.setTo(receiver);
-        mailMessage.setSubject(subject);
-        mailMessage.setText(message); //template's text
-        mailSender.send(mailMessage);
     }
 
 }
