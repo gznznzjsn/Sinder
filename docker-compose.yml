@@ -4,7 +4,7 @@ services:
       - .env
     image: 'postgres:15.1-alpine3.17'
     ports:
-      - '5433:5432'
+      - 5433:5432
     volumes:
       - postgres-data:/var/lib/postgresql/data
     container_name: db
@@ -13,11 +13,19 @@ services:
     env_file:
       - .env
     build: .
-    ports:
-      - '8081:8080'
     container_name: sinder
     depends_on:
       - db
+  nginx:
+    container_name: nginx
+    image: nginx
+    restart: always
+    volumes:
+      - ./conf:/etc/nginx/conf.d
+    ports:
+      - 80:80
+    links:
+      - sinder
 
 volumes:
   postgres-data:

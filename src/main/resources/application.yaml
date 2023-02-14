@@ -29,3 +29,6 @@ sinder:
     password: ${SINDER_MAIL_PASSWORD}
     port: ${SINDER_MAIL_PORT}
     protocol: ${SINDER_MAIL_PROTOCOL}
+springdoc:
+  swagger-ui:
+    path: api/v1/swagger-ui.html
