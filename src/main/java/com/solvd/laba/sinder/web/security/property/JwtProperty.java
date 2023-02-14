@@ -10,15 +10,10 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 public class JwtProperty {
 
     private final String accessKey;
-
     private final String refreshKey;
-
     private final String enableKey;
-
     private final String passwordRefreshKey;
-
     private final Integer accessExpirationTime;
-
     private final Integer refreshExpirationTime;
 
 }

@@ -14,8 +14,8 @@
     <artifactId>sinder</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>sinder</name>
-
     <properties>
+        <start-class>com.solvd.laba.sinder.SinderApplication</start-class>
         <java.version>17</java.version>
         <org.mapstruct.version>1.5.3.Final</org.mapstruct.version>
         <openapi-ui.version>2.0.2</openapi-ui.version>
@@ -29,8 +29,7 @@
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-configuration-processor</artifactId>
-            <version>3.0.1</version>
+            <artifactId>spring-boot-starter-mail</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -86,6 +85,11 @@
             <version>${lombok.version}</version>
         </dependency>
         <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-configuration-processor</artifactId>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
             <groupId>org.hibernate.validator</groupId>
             <artifactId>hibernate-validator</artifactId>
             <version>8.0.0.Final</version>
@@ -110,6 +114,7 @@
             <artifactId>jjwt-jackson</artifactId>
             <version>${jwt.version}</version>
         </dependency>
+
     </dependencies>
 
     <build>
@@ -132,6 +137,14 @@
                             <version>${org.mapstruct.version}</version>
                         </path>
                     </annotationProcessorPaths>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <mainClass>com.solvd.laba.sinder.SinderApplication</mainClass>
+                    <layout>JAR</layout>
                 </configuration>
             </plugin>
         </plugins>

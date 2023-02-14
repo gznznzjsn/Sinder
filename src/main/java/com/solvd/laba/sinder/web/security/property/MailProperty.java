@@ -10,13 +10,9 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 public class MailProperty {
 
     private final String host;
-
     private final String username;
-
     private final String password;
-
     private final Integer port;
-
     private final String protocol;
 
 }

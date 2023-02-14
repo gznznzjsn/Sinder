@@ -1,13 +1,11 @@
 spring:
-  config:
-    import: .env[.properties]
   datasource:
     driver-class-name: org.postgresql.Driver
     url: ${SPRING_DATASOURCE_URL}
     username: ${SPRING_DATASOURCE_USERNAME}
     password: ${SPRING_DATASOURCE_PASSWORD}
     hikari:
-      schema: sinder
+      schema: public
   jpa:
     database-platform: org.hibernate.dialect.PostgreSQLDialect
     generate-ddl: true
@@ -15,14 +13,14 @@ spring:
       ddl-auto: update
     properties:
       hibernate:
-        default_schema: sinder
+        default_schema: public
 
 sinder:
   security:
     access-key: ${SINDER_SECRETS_ACCESS-KEY}
     refresh-key: ${SINDER_SECRETS_REFRESH-KEY}
     enable-key: ${SINDER_SECRETS_ENABLE-KEY}
-    password-refresh-key: ${SINDER_SECRETS_REFRESH-PASSWORD-KEY}
+    password-refresh-key: ${SINDER_SECRETS_PASSWORD-REFRESH-KEY}
     access-expiration-time: 3600
     refresh-expiration-time: 604800
   mail:
