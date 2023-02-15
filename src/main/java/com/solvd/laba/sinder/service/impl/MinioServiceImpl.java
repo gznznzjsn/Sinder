@@ -9,6 +9,7 @@ import io.minio.RemoveObjectArgs;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import net.coobird.thumbnailator.Thumbnails;
+import org.apache.commons.compress.utils.FileNameUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -89,10 +90,11 @@ public class MinioServiceImpl implements MinioService {
 
     @SneakyThrows //todo ioexception to controllerAdvice
     private InputStream generateThumbnail(MultipartFile photo, Integer height) {
+        String extension = FileNameUtils.getExtension(photo.getOriginalFilename());
         BufferedImage originalImage = ImageIO.read(new ByteArrayInputStream(photo.getBytes()));
         Thumbnails.Builder<BufferedImage> builder = Thumbnails.of(originalImage)
                 .height(height)
-                .outputFormat("jpeg");
+                .outputFormat(extension);
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         builder.toOutputStream(outputStream);
         return new ByteArrayInputStream(outputStream.toByteArray());
