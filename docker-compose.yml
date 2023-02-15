@@ -36,8 +36,10 @@ services:
       - 9001:9001
     command: server --console-address ":9001" /data/
     volumes:
-      - ./minio:/data
+      - minio-data:/data
 
 volumes:
+  minio-data:
+      driver: local
   postgres-data:
-    driver: local
+      driver: local
