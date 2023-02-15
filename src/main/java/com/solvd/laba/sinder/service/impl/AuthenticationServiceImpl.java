@@ -1,8 +1,8 @@
 package com.solvd.laba.sinder.service.impl;
 
 import com.solvd.laba.sinder.domain.exception.InvalidPasswordException;
-import com.solvd.laba.sinder.domain.user.AuthEntity;
-import com.solvd.laba.sinder.domain.user.User;
+import com.solvd.laba.sinder.domain.AuthEntity;
+import com.solvd.laba.sinder.domain.User;
 import com.solvd.laba.sinder.service.AuthenticationService;
 import com.solvd.laba.sinder.service.MailService;
 import com.solvd.laba.sinder.service.UserService;

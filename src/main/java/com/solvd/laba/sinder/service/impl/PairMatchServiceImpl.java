@@ -2,9 +2,9 @@ package com.solvd.laba.sinder.service.impl;
 
 import com.solvd.laba.sinder.domain.exception.IllegalActionException;
 import com.solvd.laba.sinder.domain.exception.ResourceNotFoundException;
-import com.solvd.laba.sinder.domain.pairmatch.PairMatch;
-import com.solvd.laba.sinder.domain.pairmatch.PairMatchStatus;
-import com.solvd.laba.sinder.domain.user.User;
+import com.solvd.laba.sinder.domain.pairs.PairMatch;
+import com.solvd.laba.sinder.domain.pairs.PairMatchStatus;
+import com.solvd.laba.sinder.domain.User;
 import com.solvd.laba.sinder.persistence.PairMatchRepository;
 import com.solvd.laba.sinder.service.PairMatchService;
 import com.solvd.laba.sinder.service.UserService;
@@ -25,12 +25,12 @@ public class PairMatchServiceImpl implements PairMatchService {
         User user = userService.retrieveById(userId);
         User pair = userService.retrieveById(pairId);
         if (isExist(userId, pairId)) {
-            throw new IllegalActionException(""); //todo message
+            throw new IllegalActionException("You already had an interaction with user with id = " + pairId + "!");
         }
         if (isExist(pairId, userId)) {
             PairMatch pairMatch = retrieveBySenderIdAndReceiverId(pairId, userId);
             if (!pairMatch.getStatus().equals(PairMatchStatus.REQUESTED)) {
-                throw new IllegalActionException(""); //todo message
+                throw new IllegalActionException("User with id = "+pairId+" already interacted with you, and that was not Like!");
             }
             pairMatch.setStatus(PairMatchStatus.REJECTED);
             return update(pairMatch);
@@ -49,12 +49,12 @@ public class PairMatchServiceImpl implements PairMatchService {
         User user = userService.retrieveById(userId);
         User pair = userService.retrieveById(pairId);
         if (isExist(userId, pairId)) {
-            throw new IllegalActionException(""); //todo message
+            throw new IllegalActionException("You already had an interaction with user with id = " + pairId + "!");
         }
         if (isExist(pairId, userId)) {
             PairMatch pairMatch = retrieveBySenderIdAndReceiverId(pairId, userId);
             if (!pairMatch.getStatus().equals(PairMatchStatus.REQUESTED)) {
-                throw new IllegalActionException(""); //todo message
+                throw new IllegalActionException("User with id = "+pairId+" already interacted with you, and that was not Like!");
             }
             pairMatch.setStatus(PairMatchStatus.APPROVED);
             return update(pairMatch);

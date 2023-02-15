@@ -1,7 +1,7 @@
 package com.solvd.laba.sinder.web.controller;
 
-import com.solvd.laba.sinder.domain.partymatch.PartyMatch;
-import com.solvd.laba.sinder.domain.user.User;
+import com.solvd.laba.sinder.domain.User;
+import com.solvd.laba.sinder.domain.parties.PartyMatch;
 import com.solvd.laba.sinder.service.PartyMatchService;
 import com.solvd.laba.sinder.service.UserService;
 import com.solvd.laba.sinder.web.dto.PartyMatchDto;

@@ -1,11 +1,11 @@
 package com.solvd.laba.sinder.service.impl;
 
-import com.solvd.laba.sinder.domain.Party;
+import com.solvd.laba.sinder.domain.parties.Party;
 import com.solvd.laba.sinder.domain.exception.IllegalActionException;
 import com.solvd.laba.sinder.domain.exception.ResourceNotFoundException;
-import com.solvd.laba.sinder.domain.partymatch.PartyMatch;
-import com.solvd.laba.sinder.domain.partymatch.PartyMatchStatus;
-import com.solvd.laba.sinder.domain.user.User;
+import com.solvd.laba.sinder.domain.parties.PartyMatch;
+import com.solvd.laba.sinder.domain.parties.PartyMatchStatus;
+import com.solvd.laba.sinder.domain.User;
 import com.solvd.laba.sinder.persistence.PartyMatchRepository;
 import com.solvd.laba.sinder.service.PartyMatchService;
 import com.solvd.laba.sinder.service.PartyService;
@@ -62,7 +62,8 @@ public class PartyMatchServiceImpl implements PartyMatchService {
         if (isExist(guestId, partyId)) {
             PartyMatch partyMatch = retrieveByGuestIdAndPartyId(guestId, partyId);
             if (!partyMatch.getStatus().equals(PartyMatchStatus.INVITED)) {
-                throw new IllegalActionException(""); //todo message
+                throw new IllegalActionException("Party with id = " + partyId + " already interacted with you, and didn't invite you!");
+
             }
             partyMatch.setStatus(PartyMatchStatus.APPROVED);
             return update(partyMatch);
@@ -83,7 +84,7 @@ public class PartyMatchServiceImpl implements PartyMatchService {
         if (isExist(guestId, partyId)) {
             PartyMatch partyMatch = retrieveByGuestIdAndPartyId(guestId, partyId);
             if (!partyMatch.getStatus().equals(PartyMatchStatus.INVITED)) {
-                throw new IllegalActionException(""); //todo message
+                throw new IllegalActionException("Party with id = " + partyId + " already interacted with you, and didn't invite you!");
             }
             partyMatch.setStatus(PartyMatchStatus.REJECTED);
             return update(partyMatch);

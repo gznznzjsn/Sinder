@@ -1,4 +1,4 @@
-package com.solvd.laba.sinder.domain;
+package com.solvd.laba.sinder.domain.chat;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

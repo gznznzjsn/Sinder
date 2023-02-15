@@ -1,7 +1,7 @@
 package com.solvd.laba.sinder.service;
 
-import com.solvd.laba.sinder.domain.Attachment;
-import com.solvd.laba.sinder.domain.Message;
+import com.solvd.laba.sinder.domain.chat.Attachment;
+import com.solvd.laba.sinder.domain.chat.Message;
 
 import java.util.List;
 

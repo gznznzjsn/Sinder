@@ -1,6 +1,6 @@
 package com.solvd.laba.sinder.web.dto.mapper;
 
-import com.solvd.laba.sinder.domain.partymatch.PartyMatch;
+import com.solvd.laba.sinder.domain.parties.PartyMatch;
 import com.solvd.laba.sinder.web.dto.PartyMatchDto;
 import org.mapstruct.Mapper;
 

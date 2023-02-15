@@ -1,7 +1,7 @@
 package com.solvd.laba.sinder.service.impl;
 
 import com.solvd.laba.sinder.domain.exception.MailException;
-import com.solvd.laba.sinder.domain.user.User;
+import com.solvd.laba.sinder.domain.User;
 import com.solvd.laba.sinder.service.MailService;
 import com.solvd.laba.sinder.service.property.MailProperty;
 import freemarker.template.Configuration;

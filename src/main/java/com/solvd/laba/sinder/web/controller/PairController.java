@@ -1,7 +1,7 @@
 package com.solvd.laba.sinder.web.controller;
 
-import com.solvd.laba.sinder.domain.pairmatch.PairMatch;
-import com.solvd.laba.sinder.domain.user.User;
+import com.solvd.laba.sinder.domain.User;
+import com.solvd.laba.sinder.domain.pairs.PairMatch;
 import com.solvd.laba.sinder.service.PairMatchService;
 import com.solvd.laba.sinder.service.UserService;
 import com.solvd.laba.sinder.web.dto.PairMatchDto;

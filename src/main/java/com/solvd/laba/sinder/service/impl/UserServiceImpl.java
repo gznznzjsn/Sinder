@@ -2,9 +2,9 @@ package com.solvd.laba.sinder.service.impl;
 
 import com.solvd.laba.sinder.domain.exception.ResourceAlreadyExistsException;
 import com.solvd.laba.sinder.domain.exception.ResourceNotFoundException;
-import com.solvd.laba.sinder.domain.user.PairPreference;
-import com.solvd.laba.sinder.domain.user.PartyPreference;
-import com.solvd.laba.sinder.domain.user.User;
+import com.solvd.laba.sinder.domain.pairs.PairPreference;
+import com.solvd.laba.sinder.domain.parties.PartyPreference;
+import com.solvd.laba.sinder.domain.User;
 import com.solvd.laba.sinder.persistence.UserRepository;
 import com.solvd.laba.sinder.service.MinioService;
 import com.solvd.laba.sinder.service.UserService;

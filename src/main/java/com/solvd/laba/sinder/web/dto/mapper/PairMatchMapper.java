@@ -1,6 +1,6 @@
 package com.solvd.laba.sinder.web.dto.mapper;
 
-import com.solvd.laba.sinder.domain.pairmatch.PairMatch;
+import com.solvd.laba.sinder.domain.pairs.PairMatch;
 import com.solvd.laba.sinder.web.dto.PairMatchDto;
 import org.mapstruct.Mapper;
 

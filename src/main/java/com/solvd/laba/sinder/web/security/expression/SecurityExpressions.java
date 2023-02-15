@@ -1,9 +1,9 @@
 package com.solvd.laba.sinder.web.security.expression;
 
-import com.solvd.laba.sinder.domain.Party;
-import com.solvd.laba.sinder.domain.pairmatch.PairMatch;
-import com.solvd.laba.sinder.domain.pairmatch.PairMatchStatus;
-import com.solvd.laba.sinder.domain.user.User;
+import com.solvd.laba.sinder.domain.parties.Party;
+import com.solvd.laba.sinder.domain.pairs.PairMatch;
+import com.solvd.laba.sinder.domain.pairs.PairMatchStatus;
+import com.solvd.laba.sinder.domain.User;
 import com.solvd.laba.sinder.service.PairMatchService;
 import com.solvd.laba.sinder.service.PartyService;
 import com.solvd.laba.sinder.service.UserService;
@@ -28,7 +28,8 @@ public class SecurityExpressions {
     public boolean isUser(Long userId) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         User user = userService.retrieveById(userId);
-        return authentication.getName().equals(user.getEmail());
+        return authentication.getName().equals(user.getEmail())
+               && user.isEnabled();
     }
 
     public boolean isPair(Long userId, Long pairId) {

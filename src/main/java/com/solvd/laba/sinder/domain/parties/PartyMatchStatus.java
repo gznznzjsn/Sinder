@@ -1,4 +1,4 @@
-package com.solvd.laba.sinder.domain.partymatch;
+package com.solvd.laba.sinder.domain.parties;
 
 public enum PartyMatchStatus {
 

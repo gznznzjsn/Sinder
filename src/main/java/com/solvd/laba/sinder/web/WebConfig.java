@@ -3,6 +3,7 @@ package com.solvd.laba.sinder.web;
 import com.solvd.laba.sinder.web.security.filter.JwtAuthenticationFilter;
 import com.solvd.laba.sinder.service.property.MailProperty;
 import io.swagger.v3.oas.annotations.OpenAPIDefinition;
+import io.swagger.v3.oas.annotations.servers.Server;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -19,7 +20,12 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import java.util.Properties;
 
 @Configuration
-@OpenAPIDefinition
+@OpenAPIDefinition(
+        servers = {
+                @Server(url = "http://localhost", description = "nginx"),
+                @Server(url = "http://localhost:8080", description = "default")
+        }
+)
 @RequiredArgsConstructor
 @EnableWebSecurity
 @EnableMethodSecurity(securedEnabled = true)
