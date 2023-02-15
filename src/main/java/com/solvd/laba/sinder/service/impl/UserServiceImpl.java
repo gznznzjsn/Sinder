@@ -104,21 +104,17 @@ public class UserServiceImpl implements UserService {
     public User addPhoto(Long userId, MultipartFile photo) {
         User user = retrieveById(userId);
         List<String> photos = user.getPhotos();
-        String path = minioService.uploadPhotos(userId, photo, photos);
-//        photos.add(path);
-//        path = minioService.uploadThumbnail(userId, photo);
-//        photos.add(path);
+        photos = minioService.uploadPhotos(userId, photo, photos);
         user.setPhotos(photos);
         return userRepository.save(user);
     }
 
     @Override
     @Transactional
-    public void deletePhoto(Long userId, String path) {
+    public void deletePhoto(Long userId, String filename) {
         User user = retrieveById(userId);
-        minioService.deletePhoto(userId, path);
         List<String> photos = user.getPhotos();
-        photos.remove(path);
+        photos = minioService.deletePhoto(userId, filename, photos);
         user.setPhotos(photos);
         userRepository.save(user);
     }

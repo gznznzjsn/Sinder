@@ -16,18 +16,23 @@ spring:
     properties:
       hibernate:
         default_schema: sinder
+  minio:
+    bucket: sinder
+    access-key: minioadmin
+    secret-key: minioadmin
+    url: https://play.min.io
 
 sinder:
   security:
-    access-key: ${SINDER_SECRETS_ACCESS-KEY}
-    refresh-key: ${SINDER_SECRETS_REFRESH-KEY}
-    enable-key: ${SINDER_SECRETS_ENABLE-KEY}
-    password-refresh-key: ${SINDER_SECRETS_REFRESH-PASSWORD-KEY}
+    access-key: 546A576D5A7134743777217A25432A462D4A614E645267556B58703272357538
+    refresh-key: 50655368566D5971337436763979244226452948404D635166546A576E5A7234
+    enable-key: 73357638792F423F4428472B4B6250655368566D597133743677397A24432646
+    password-refresh-key: 404D635166546A576E5A7234753778214125442A472D4B614E645267556B5870
     access-expiration-time: 3600
     refresh-expiration-time: 604800
   mail:
-    host: ${SINDER_MAIL_HOST}
-    username: ${SINDER_MAIL_USERNAME}
-    password: ${SINDER_MAIL_PASSWORD}
-    port: ${SINDER_MAIL_PORT}
-    protocol: ${SINDER_MAIL_PROTOCOL}
+    host: smtp.yandex.ru
+    username: sinder.app@yandex.by
+    password: jowwfksutmharxiq
+    port: 465
+    protocol: smtps

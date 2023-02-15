@@ -57,8 +57,8 @@ public class UserController {
     @DeleteMapping ("/{userId}/photos")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deletePhoto(@PathVariable Long userId,
-                            @RequestParam String path) {
-        userService.deletePhoto(userId, path);
+                            @RequestParam String filename) {
+        userService.deletePhoto(userId, filename);
     }
 
 }

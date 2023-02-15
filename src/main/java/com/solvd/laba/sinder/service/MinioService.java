@@ -6,12 +6,8 @@ import java.util.List;
 
 public interface MinioService {
 
-//    String uploadPhoto(Long userId, MultipartFile photo);
-//
-//    String uploadThumbnail(Long userId, MultipartFile photo);
+    List<String> uploadPhotos(Long userId, MultipartFile photo, List<String> photos);
 
-    List<String> uploadPhotos(Long userId, MultipartFile photo);
-
-    void deletePhoto(Long userId, String path);
+    List<String> deletePhoto(Long userId, String filename, List<String> photos);
 
 }

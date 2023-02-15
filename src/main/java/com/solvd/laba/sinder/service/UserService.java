@@ -27,6 +27,6 @@ public interface UserService {
 
     User addPhoto(Long userId, MultipartFile photo);
 
-    void deletePhoto(Long userId, String path);
+    void deletePhoto(Long userId, String filename);
 
 }
