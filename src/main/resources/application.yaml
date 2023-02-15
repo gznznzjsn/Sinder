@@ -9,6 +9,11 @@ spring:
     generate-ddl: true
     hibernate:
       ddl-auto: update
+  minio:
+    bucket: ${MINIO_DEFAULT_BUCKETS}
+    access-key: ${MINIO_ROOT_USER}
+    secret-key: ${MINIO_ROOT_PASSWORD}
+    url: ${SPRING_MINIO_URL}
 
 sinder:
   security:
@@ -18,12 +23,14 @@ sinder:
     password-refresh-key: ${SINDER_SECRETS_PASSWORD-REFRESH-KEY}
     access-expiration-time: ${SINDER_SECRETS_ACCESS-EXPIRATION-TIME}
     refresh-expiration-time: ${SINDER_SECRETS_REFRESH-EXPIRATION-TIME}
+
   mail:
     host: ${SINDER_MAIL_HOST}
     username: ${SINDER_MAIL_USERNAME}
     password: ${SINDER_MAIL_PASSWORD}
     port: ${SINDER_MAIL_PORT}
     protocol: ${SINDER_MAIL_PROTOCOL}
+
 springdoc:
   override-with-generic-response: false
   swagger-ui:

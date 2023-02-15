@@ -1,8 +1,7 @@
 services:
   db:
-    env_file:
-      - .env
-    image: 'postgres:15.1-alpine3.17'
+    env_file: .env
+    image: postgres:15.1-alpine3.17
     ports:
       - 5433:5432
     volumes:
@@ -10,22 +9,34 @@ services:
     container_name: db
 
   sinder:
-    env_file:
-      - .env
+    env_file: .env
     build: .
     container_name: sinder
     depends_on:
       - db
+      - minio
+
   nginx:
     container_name: nginx
     image: nginx
-    restart: always
+    depends_on:
+      - sinder
     volumes:
       - ./conf:/etc/nginx/conf.d
     ports:
       - 80:80
     links:
       - sinder
+
+  minio:
+    env_file: .env
+    image: minio/minio
+    ports:
+      - 9000:9000
+      - 9001:9001
+    command: server --console-address ":9001" /data/
+    volumes:
+      - ./minio:/data
 
 volumes:
   postgres-data:
