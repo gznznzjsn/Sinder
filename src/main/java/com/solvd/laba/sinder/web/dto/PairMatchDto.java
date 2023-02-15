@@ -1,7 +1,7 @@
 package com.solvd.laba.sinder.web.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.solvd.laba.sinder.domain.pairmatch.PairMatchStatus;
+import com.solvd.laba.sinder.domain.pairs.PairMatchStatus;
 
 public record PairMatchDto(
 

@@ -1,6 +1,6 @@
 package com.solvd.laba.sinder.web.dto.mapper;
 
-import com.solvd.laba.sinder.domain.Attachment;
+import com.solvd.laba.sinder.domain.chat.Attachment;
 import com.solvd.laba.sinder.web.dto.AttachmentDto;
 import org.mapstruct.Mapper;
 

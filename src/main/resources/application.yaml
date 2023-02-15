@@ -4,16 +4,11 @@ spring:
     url: ${SPRING_DATASOURCE_URL}
     username: ${SPRING_DATASOURCE_USERNAME}
     password: ${SPRING_DATASOURCE_PASSWORD}
-    hikari:
-      schema: public
   jpa:
     database-platform: org.hibernate.dialect.PostgreSQLDialect
     generate-ddl: true
     hibernate:
       ddl-auto: update
-    properties:
-      hibernate:
-        default_schema: public
 
 sinder:
   security:
@@ -21,8 +16,8 @@ sinder:
     refresh-key: ${SINDER_SECRETS_REFRESH-KEY}
     enable-key: ${SINDER_SECRETS_ENABLE-KEY}
     password-refresh-key: ${SINDER_SECRETS_PASSWORD-REFRESH-KEY}
-    access-expiration-time: 3600
-    refresh-expiration-time: 604800
+    access-expiration-time: ${SINDER_SECRETS_ACCESS-EXPIRATION-TIME}
+    refresh-expiration-time: ${SINDER_SECRETS_REFRESH-EXPIRATION-TIME}
   mail:
     host: ${SINDER_MAIL_HOST}
     username: ${SINDER_MAIL_USERNAME}
@@ -30,5 +25,6 @@ sinder:
     port: ${SINDER_MAIL_PORT}
     protocol: ${SINDER_MAIL_PROTOCOL}
 springdoc:
+  override-with-generic-response: false
   swagger-ui:
-    path: api/v1/swagger-ui.html
+    path: /api/v1/swagger-ui

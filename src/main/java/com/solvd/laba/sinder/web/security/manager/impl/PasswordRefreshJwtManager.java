@@ -36,7 +36,7 @@ public class PasswordRefreshJwtManager implements JwtManager {
                 .builder()
                 .setSubject(userDetails.getUsername())
                 .setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis() + 1000L * jwtProperty.getRefreshExpirationTime()))
+                .setExpiration(new Date(System.currentTimeMillis() + 1000L * jwtProperty.getAccessExpirationTime()))
                 .signWith(passwordRefreshKey, SignatureAlgorithm.HS256)
                 .compact();
     }

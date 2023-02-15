@@ -7,8 +7,8 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 @OpenAPIDefinition(
         servers = {
-                @Server(url = "http://localhost:8080", description = "default server"),
-                @Server(url = "http://localhost", description = "nginx server")
+                @Server(url = "http://localhost", description = "nginx"),
+                @Server(url = "http://localhost:8080", description = "default")
         }
 )
 public class WebConfig {

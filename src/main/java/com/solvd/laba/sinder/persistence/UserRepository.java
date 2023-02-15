@@ -1,6 +1,6 @@
 package com.solvd.laba.sinder.persistence;
 
-import com.solvd.laba.sinder.domain.user.User;
+import com.solvd.laba.sinder.domain.User;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -13,13 +13,13 @@ import java.util.Optional;
 public interface UserRepository extends JpaRepository<User, Long> {
 
     @Query(value = """
-            with u as( 
-            select * 
+            with u as(
+            select *
             from sinder.users
             inner join pair_preferences pp on pp.pair_preference_id = users.user_pair_preference_id
             inner join pair_preferences_genders ppg on pp.pair_preference_id = ppg.pair_preferences_genders_pair_preference_id
             ), p as(
-            select * 
+            select *
             from sinder.users
             inner join pair_preferences pp on pp.pair_preference_id = users.user_pair_preference_id
             inner join pair_preferences_genders ppg on pp.pair_preference_id = ppg.pair_preferences_genders_pair_preference_id

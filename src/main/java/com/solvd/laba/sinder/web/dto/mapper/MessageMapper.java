@@ -1,6 +1,6 @@
 package com.solvd.laba.sinder.web.dto.mapper;
 
-import com.solvd.laba.sinder.domain.Message;
+import com.solvd.laba.sinder.domain.chat.Message;
 import com.solvd.laba.sinder.web.dto.MessageDto;
 import org.mapstruct.Mapper;
 

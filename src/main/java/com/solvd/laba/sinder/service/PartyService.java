@@ -1,6 +1,6 @@
 package com.solvd.laba.sinder.service;
 
-import com.solvd.laba.sinder.domain.Party;
+import com.solvd.laba.sinder.domain.parties.Party;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 

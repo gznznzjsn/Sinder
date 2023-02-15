@@ -1,8 +1,8 @@
 package com.solvd.laba.sinder.web.controller;
 
-import com.solvd.laba.sinder.domain.Attachment;
-import com.solvd.laba.sinder.domain.Message;
-import com.solvd.laba.sinder.domain.user.User;
+import com.solvd.laba.sinder.domain.User;
+import com.solvd.laba.sinder.domain.chat.Attachment;
+import com.solvd.laba.sinder.domain.chat.Message;
 import com.solvd.laba.sinder.service.MessageService;
 import com.solvd.laba.sinder.web.dto.AttachmentDto;
 import com.solvd.laba.sinder.web.dto.MessageDto;

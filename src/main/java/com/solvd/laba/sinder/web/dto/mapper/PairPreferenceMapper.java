@@ -1,6 +1,6 @@
 package com.solvd.laba.sinder.web.dto.mapper;
 
-import com.solvd.laba.sinder.domain.user.PairPreference;
+import com.solvd.laba.sinder.domain.pairs.PairPreference;
 import com.solvd.laba.sinder.web.dto.PairPreferenceDto;
 import org.mapstruct.Mapper;
 

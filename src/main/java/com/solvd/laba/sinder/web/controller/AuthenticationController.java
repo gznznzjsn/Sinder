@@ -1,6 +1,6 @@
 package com.solvd.laba.sinder.web.controller;
 
-import com.solvd.laba.sinder.domain.user.AuthEntity;
+import com.solvd.laba.sinder.domain.AuthEntity;
 import com.solvd.laba.sinder.service.AuthenticationService;
 import com.solvd.laba.sinder.web.dto.AuthEntityDto;
 import com.solvd.laba.sinder.web.dto.group.*;

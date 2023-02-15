@@ -1,6 +1,6 @@
 package com.solvd.laba.sinder.service;
 
-import com.solvd.laba.sinder.domain.user.AuthEntity;
+import com.solvd.laba.sinder.domain.AuthEntity;
 
 public interface AuthenticationService {
 

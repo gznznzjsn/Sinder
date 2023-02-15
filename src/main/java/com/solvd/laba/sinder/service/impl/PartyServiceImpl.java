@@ -1,6 +1,6 @@
 package com.solvd.laba.sinder.service.impl;
 
-import com.solvd.laba.sinder.domain.Party;
+import com.solvd.laba.sinder.domain.parties.Party;
 import com.solvd.laba.sinder.domain.exception.IllegalActionException;
 import com.solvd.laba.sinder.domain.exception.ResourceNotFoundException;
 import com.solvd.laba.sinder.persistence.PartyRepository;
@@ -57,7 +57,7 @@ public class PartyServiceImpl implements PartyService {
     public Party update(Party party) {
         Party foundParty = retrieveById(party.getId());
         if (foundParty.getPublished()) {
-            throw new IllegalActionException(""); //todo message
+            throw new IllegalActionException("Party is already published, can't be updated!");
         }
         foundParty.setName(party.getName());
         foundParty.setDescription(party.getDescription());

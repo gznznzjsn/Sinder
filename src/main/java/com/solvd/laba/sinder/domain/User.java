@@ -1,6 +1,7 @@
-package com.solvd.laba.sinder.domain.user;
+package com.solvd.laba.sinder.domain;
 
-import com.solvd.laba.sinder.domain.Point;
+import com.solvd.laba.sinder.domain.pairs.PairPreference;
+import com.solvd.laba.sinder.domain.parties.PartyPreference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

@@ -1,6 +1,6 @@
 package com.solvd.laba.sinder.web.controller;
 
-import com.solvd.laba.sinder.domain.user.User;
+import com.solvd.laba.sinder.domain.User;
 import com.solvd.laba.sinder.service.UserService;
 import com.solvd.laba.sinder.web.dto.UserDto;
 import com.solvd.laba.sinder.web.dto.group.OnUpdate;

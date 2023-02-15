@@ -1,7 +1,7 @@
 package com.solvd.laba.sinder.web.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.solvd.laba.sinder.domain.user.Gender;
+import com.solvd.laba.sinder.domain.Gender;
 import com.solvd.laba.sinder.web.dto.group.OnUpdate;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Min;

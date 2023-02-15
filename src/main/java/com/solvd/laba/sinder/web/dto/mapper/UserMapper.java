@@ -1,6 +1,6 @@
 package com.solvd.laba.sinder.web.dto.mapper;
 
-import com.solvd.laba.sinder.domain.user.User;
+import com.solvd.laba.sinder.domain.User;
 import com.solvd.laba.sinder.web.dto.UserDto;
 import org.mapstruct.Mapper;
 
