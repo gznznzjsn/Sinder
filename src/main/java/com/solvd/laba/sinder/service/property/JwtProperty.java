@@ -1,4 +1,4 @@
-package com.solvd.laba.sinder.web.security.property;
+package com.solvd.laba.sinder.service.property;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

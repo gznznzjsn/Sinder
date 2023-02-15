@@ -1,5 +1,6 @@
 package com.solvd.laba.sinder.web.controller;
 
+
 import com.solvd.laba.sinder.domain.user.User;
 import com.solvd.laba.sinder.service.UserService;
 import com.solvd.laba.sinder.web.dto.UserDto;
@@ -10,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 @RequiredArgsConstructor
@@ -41,6 +43,22 @@ public class UserController {
         user.setId(userId);
         User updatedUser = userService.update(user);
         return userMapper.toDto(updatedUser);
+    }
+
+    @PreAuthorize("@securityExpressions.isUser(#userId)")
+    @PostMapping ("/{userId}/photos")
+    public UserDto addPhoto(@RequestParam MultipartFile photo,
+                            @PathVariable Long userId) {
+        User updatedUser = userService.addPhoto(userId, photo);
+        return userMapper.toDto(updatedUser);
+    }
+
+    @PreAuthorize("@securityExpressions.isUser(#userId)")
+    @DeleteMapping ("/{userId}/photos")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deletePhoto(@PathVariable Long userId,
+                            @RequestParam String path) {
+        userService.deletePhoto(userId, path);
     }
 
 }

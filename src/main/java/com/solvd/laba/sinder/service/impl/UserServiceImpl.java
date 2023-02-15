@@ -6,18 +6,23 @@ import com.solvd.laba.sinder.domain.user.PairPreference;
 import com.solvd.laba.sinder.domain.user.PartyPreference;
 import com.solvd.laba.sinder.domain.user.User;
 import com.solvd.laba.sinder.persistence.UserRepository;
+import com.solvd.laba.sinder.service.MinioService;
 import com.solvd.laba.sinder.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
+    private final MinioService minioService;
 
     @Override
     @Transactional(readOnly = true)
@@ -78,7 +83,6 @@ public class UserServiceImpl implements UserService {
         foundUser.setAge(user.getAge());
         foundUser.setDescription(user.getDescription());
         foundUser.setGender(user.getGender());
-        foundUser.setPhotos(user.getPhotos());
         foundUser.setPhoneNumber(user.getPhoneNumber());
         foundUser.setInstagramLink(user.getInstagramLink());
         foundUser.setFacebookLink(user.getFacebookLink());
@@ -93,6 +97,30 @@ public class UserServiceImpl implements UserService {
         partyPreference.setPartyDates(user.getPartyPreference().getPartyDates());
         foundUser.setPartyPreference(partyPreference);
         return userRepository.save(foundUser);
+    }
+
+    @Override
+    @Transactional
+    public User addPhoto(Long userId, MultipartFile photo) {
+        User user = retrieveById(userId);
+        List<String> photos = user.getPhotos();
+        String path = minioService.uploadPhotos(userId, photo, photos);
+//        photos.add(path);
+//        path = minioService.uploadThumbnail(userId, photo);
+//        photos.add(path);
+        user.setPhotos(photos);
+        return userRepository.save(user);
+    }
+
+    @Override
+    @Transactional
+    public void deletePhoto(Long userId, String path) {
+        User user = retrieveById(userId);
+        minioService.deletePhoto(userId, path);
+        List<String> photos = user.getPhotos();
+        photos.remove(path);
+        user.setPhotos(photos);
+        userRepository.save(user);
     }
 
     @Override

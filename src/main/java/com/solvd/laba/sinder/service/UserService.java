@@ -3,6 +3,7 @@ package com.solvd.laba.sinder.service;
 import com.solvd.laba.sinder.domain.user.User;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.web.multipart.MultipartFile;
 
 public interface UserService {
 
@@ -23,5 +24,9 @@ public interface UserService {
     User update(User user);
 
     void delete(Long userId);
+
+    User addPhoto(Long userId, MultipartFile photo);
+
+    void deletePhoto(Long userId, String path);
 
 }
