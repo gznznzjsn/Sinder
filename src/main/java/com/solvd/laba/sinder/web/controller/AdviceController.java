@@ -10,6 +10,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.multipart.MaxUploadSizeExceededException;
 
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -21,6 +22,13 @@ public class AdviceController {
     @ExceptionHandler(IllegalActionException.class)
     @ResponseStatus(HttpStatus.NOT_ACCEPTABLE)
     public ExceptionDto handleIllegalAction(IllegalActionException e) {
+        return ExceptionDto.builder()
+                .message(e.getMessage())
+                .build();
+    }
+
+    @ExceptionHandler(MaxUploadSizeExceededException.class)
+    public ExceptionDto handleMaxUploadSizeExceeded(MaxUploadSizeExceededException e) {
         return ExceptionDto.builder()
                 .message(e.getMessage())
                 .build();
@@ -53,6 +61,14 @@ public class AdviceController {
     @ExceptionHandler(ResourceNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public ExceptionDto handleResourceNotFound(ResourceNotFoundException e) {
+        return ExceptionDto.builder()
+                .message(e.getMessage())
+                .build();
+    }
+
+    @ExceptionHandler(StorageException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ExceptionDto handleStorage(StorageException e) {
         return ExceptionDto.builder()
                 .message(e.getMessage())
                 .build();

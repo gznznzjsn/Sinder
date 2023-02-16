@@ -7,6 +7,7 @@ import com.solvd.laba.sinder.web.dto.UserDto;
 import com.solvd.laba.sinder.web.dto.group.OnUpdate;
 import com.solvd.laba.sinder.web.dto.mapper.ArtifactMapper;
 import com.solvd.laba.sinder.web.dto.mapper.UserMapper;
+import com.solvd.laba.sinder.web.validator.ValidImage;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import org.springframework.http.HttpStatus;
@@ -51,7 +52,7 @@ public class UserController {
     @SneakyThrows
     @PreAuthorize("@securityExpressions.isUser(#userId)")
     @PostMapping ("/{userId}/photos")
-    public UserDto addPhoto(@RequestParam MultipartFile photo,
+    public UserDto addPhoto(@RequestPart @ValidImage MultipartFile photo,
                             @PathVariable Long userId) {
         Artifact artifact = artifactMapper.toEntity(photo);
         User updatedUser = userService.addPhoto(userId, artifact);
