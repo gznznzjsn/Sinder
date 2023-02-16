@@ -1,10 +1,10 @@
 package com.solvd.laba.sinder.service;
 
-import org.springframework.web.multipart.MultipartFile;
+import com.solvd.laba.sinder.domain.Artifact;
 
 public interface StorageService {
 
-    String uploadPhoto(Long userId, MultipartFile photo);
+    String uploadPhoto(Long userId, Artifact photo);
 
     String deletePhoto(Long userId, String filename);
 

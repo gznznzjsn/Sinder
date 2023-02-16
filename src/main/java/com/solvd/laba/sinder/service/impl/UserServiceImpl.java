@@ -1,10 +1,11 @@
 package com.solvd.laba.sinder.service.impl;
 
+import com.solvd.laba.sinder.domain.Artifact;
+import com.solvd.laba.sinder.domain.User;
 import com.solvd.laba.sinder.domain.exception.ResourceAlreadyExistsException;
 import com.solvd.laba.sinder.domain.exception.ResourceNotFoundException;
 import com.solvd.laba.sinder.domain.pairs.PairPreference;
 import com.solvd.laba.sinder.domain.parties.PartyPreference;
-import com.solvd.laba.sinder.domain.User;
 import com.solvd.laba.sinder.persistence.UserRepository;
 import com.solvd.laba.sinder.service.StorageService;
 import com.solvd.laba.sinder.service.UserService;
@@ -13,7 +14,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -101,7 +101,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
-    public User addPhoto(Long userId, MultipartFile photo) {
+    public User addPhoto(Long userId, Artifact photo) {
         User user = retrieveById(userId);
         List<String> photos = user.getPhotos();
         String path = storageService.uploadPhoto(userId, photo);

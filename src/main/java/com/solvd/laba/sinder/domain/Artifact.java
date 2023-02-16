@@ -12,6 +12,6 @@ import lombok.NoArgsConstructor;
 public class Artifact {
 
     private String filename;
-    private Byte[] bytes;
+    private byte[] bytes;
 
 }

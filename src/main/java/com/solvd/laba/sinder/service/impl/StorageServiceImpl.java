@@ -1,5 +1,6 @@
 package com.solvd.laba.sinder.service.impl;
 
+import com.solvd.laba.sinder.domain.Artifact;
 import com.solvd.laba.sinder.domain.exception.StorageException;
 import com.solvd.laba.sinder.service.StorageService;
 import com.solvd.laba.sinder.service.property.MinioProperty;
@@ -9,7 +10,6 @@ import lombok.SneakyThrows;
 import net.coobird.thumbnailator.Thumbnails;
 import org.apache.commons.compress.utils.FileNameUtils;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -25,15 +25,15 @@ public class StorageServiceImpl implements StorageService {
     private final MinioProperty minioProperty;
 
     @Override
-    public String uploadPhoto(Long userId, MultipartFile photo) {
+    public String uploadPhoto(Long userId, Artifact photo) {
         try {
             createBucket();
-            String path = "users/" + userId + "/100/" + photo.getOriginalFilename();
+            String path = "users/" + userId + "/100/" + photo.getFilename();
             savePhoto(path, generateThumbnail(photo, 100));
-            path = "users/" + userId + "/400/" + photo.getOriginalFilename();
+            path = "users/" + userId + "/400/" + photo.getFilename();
             savePhoto(path, generateThumbnail(photo, 400));
-            path = "users/" + userId + "/original/" + photo.getOriginalFilename();
-            savePhoto(path, photo.getInputStream());
+            path = "users/" + userId + "/original/" + photo.getFilename();
+            savePhoto(path, new ByteArrayInputStream(photo.getBytes()));
             return path;
         } catch (Exception e) {
             e.printStackTrace();
@@ -87,8 +87,8 @@ public class StorageServiceImpl implements StorageService {
     }
 
     @SneakyThrows
-    private InputStream generateThumbnail(MultipartFile photo, Integer height) {
-        String extension = FileNameUtils.getExtension(photo.getOriginalFilename());
+    private InputStream generateThumbnail(Artifact photo, Integer height) {
+        String extension = FileNameUtils.getExtension(photo.getFilename());
         BufferedImage originalImage = ImageIO.read(new ByteArrayInputStream(photo.getBytes()));
         Thumbnails.Builder<BufferedImage> builder = Thumbnails.of(originalImage)
                 .height(height)
