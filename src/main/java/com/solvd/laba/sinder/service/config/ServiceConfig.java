@@ -1,6 +1,6 @@
 package com.solvd.laba.sinder.service.config;
 
-import com.solvd.laba.sinder.domain.exception.MinioException;
+import com.solvd.laba.sinder.domain.exception.StorageException;
 import com.solvd.laba.sinder.service.property.MinioProperty;
 import io.minio.MinioClient;
 import lombok.RequiredArgsConstructor;
@@ -21,7 +21,7 @@ public class ServiceConfig {
                     .credentials(minioProperty.getAccessKey(), minioProperty.getSecretKey())
                     .build();
         } catch (Exception e) {
-            throw new MinioException("Unable to connect to minio!");
+            throw new StorageException("Unable to connect to minio!");
         }
     }
 

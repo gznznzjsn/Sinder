@@ -2,6 +2,7 @@ package com.solvd.laba.sinder.web.controller;
 
 import com.solvd.laba.sinder.domain.exception.*;
 import com.solvd.laba.sinder.web.dto.ExceptionDto;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.validation.FieldError;
@@ -13,13 +14,13 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+@Slf4j
 @RestControllerAdvice
 public class AdviceController {
 
     @ExceptionHandler(IllegalActionException.class)
     @ResponseStatus(HttpStatus.NOT_ACCEPTABLE)
-    public ExceptionDto handleIllegalAction(
-            IllegalActionException e) {
+    public ExceptionDto handleIllegalAction(IllegalActionException e) {
         return ExceptionDto.builder()
                 .message(e.getMessage())
                 .build();
@@ -27,8 +28,7 @@ public class AdviceController {
 
     @ExceptionHandler(InvalidPasswordException.class)
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public ExceptionDto handleInvalidPassword(
-            InvalidPasswordException e) {
+    public ExceptionDto handleInvalidPassword(InvalidPasswordException e) {
         return ExceptionDto.builder()
                 .message(e.getMessage())
                 .build();
@@ -36,8 +36,7 @@ public class AdviceController {
 
     @ExceptionHandler(MailException.class)
     @ResponseStatus(HttpStatus.NOT_ACCEPTABLE)
-    public ExceptionDto handleMail(
-            MailException e) {
+    public ExceptionDto handleMail(MailException e) {
         return ExceptionDto.builder()
                 .message(e.getMessage())
                 .build();
@@ -45,8 +44,7 @@ public class AdviceController {
 
     @ExceptionHandler(ResourceAlreadyExistsException.class)
     @ResponseStatus(HttpStatus.CONFLICT)
-    public ExceptionDto handleResourceAlreadyExists(
-            ResourceAlreadyExistsException e) {
+    public ExceptionDto handleResourceAlreadyExists(ResourceAlreadyExistsException e) {
         return ExceptionDto.builder()
                 .message(e.getMessage())
                 .build();
@@ -54,8 +52,7 @@ public class AdviceController {
 
     @ExceptionHandler(ResourceNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    public ExceptionDto handleResourceNotFound(
-            ResourceNotFoundException e) {
+    public ExceptionDto handleResourceNotFound(ResourceNotFoundException e) {
         return ExceptionDto.builder()
                 .message(e.getMessage())
                 .build();
@@ -89,7 +86,8 @@ public class AdviceController {
 
     @ExceptionHandler(Exception.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    public ExceptionDto handleOther() {
+    public ExceptionDto handleOther(Exception e) {
+        log.error(e.getMessage(), e);
         return ExceptionDto.builder()
                 .message("Please, try later!")
                 .build();

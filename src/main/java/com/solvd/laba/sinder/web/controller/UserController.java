@@ -48,6 +48,7 @@ public class UserController {
     @PostMapping ("/{userId}/photos")
     public UserDto addPhoto(@RequestParam MultipartFile photo,
                             @PathVariable Long userId) {
+
         User updatedUser = userService.addPhoto(userId, photo);
         return userMapper.toDto(updatedUser);
     }

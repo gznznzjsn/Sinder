@@ -6,7 +6,7 @@ import com.solvd.laba.sinder.domain.pairs.PairPreference;
 import com.solvd.laba.sinder.domain.parties.PartyPreference;
 import com.solvd.laba.sinder.domain.User;
 import com.solvd.laba.sinder.persistence.UserRepository;
-import com.solvd.laba.sinder.service.MinioService;
+import com.solvd.laba.sinder.service.StorageService;
 import com.solvd.laba.sinder.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -22,7 +22,7 @@ import java.util.List;
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
-    private final MinioService minioService;
+    private final StorageService storageService;
 
     @Override
     @Transactional(readOnly = true)
@@ -104,7 +104,8 @@ public class UserServiceImpl implements UserService {
     public User addPhoto(Long userId, MultipartFile photo) {
         User user = retrieveById(userId);
         List<String> photos = user.getPhotos();
-        photos = minioService.uploadPhotos(userId, photo, photos);
+        String path = storageService.uploadPhoto(userId, photo);
+        photos.add(path);
         user.setPhotos(photos);
         return userRepository.save(user);
     }
@@ -114,7 +115,8 @@ public class UserServiceImpl implements UserService {
     public void deletePhoto(Long userId, String filename) {
         User user = retrieveById(userId);
         List<String> photos = user.getPhotos();
-        photos = minioService.deletePhoto(userId, filename, photos);
+        String path = storageService.deletePhoto(userId, filename);
+        photos.remove(path);
         user.setPhotos(photos);
         userRepository.save(user);
     }
