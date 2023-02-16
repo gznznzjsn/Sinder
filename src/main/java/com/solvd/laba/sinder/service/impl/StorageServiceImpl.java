@@ -16,6 +16,7 @@ import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
+import java.util.concurrent.CompletableFuture;
 
 @Service
 @RequiredArgsConstructor
@@ -28,12 +29,19 @@ public class StorageServiceImpl implements StorageService {
     public String uploadPhoto(Long userId, Artifact photo) {
         try {
             createBucket();
-            String path = "users/" + userId + "/100/" + photo.getFilename();
-            savePhoto(path, generateThumbnail(photo, 100));
-            path = "users/" + userId + "/400/" + photo.getFilename();
-            savePhoto(path, generateThumbnail(photo, 400));
-            path = "users/" + userId + "/original/" + photo.getFilename();
+            CompletableFuture<Void> allFutures = CompletableFuture.allOf(
+                    CompletableFuture.runAsync(() -> {
+                        String path = "users/" + userId + "/100/" + photo.getFilename();
+                        savePhoto(path, generateThumbnail(photo, 100));
+                    }),
+                    CompletableFuture.runAsync(() -> {
+                        String path = "users/" + userId + "/400/" + photo.getFilename();
+                        savePhoto(path, generateThumbnail(photo, 400));
+                    })
+            );
+            String path = "users/" + userId + "/original/" + photo.getFilename();
             savePhoto(path, new ByteArrayInputStream(photo.getBytes()));
+            allFutures.get();
             return path;
         } catch (Exception e) {
             e.printStackTrace();

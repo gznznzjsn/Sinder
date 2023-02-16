@@ -3,6 +3,8 @@ package com.solvd.laba.sinder.web;
 import com.solvd.laba.sinder.web.security.filter.JwtAuthenticationFilter;
 import com.solvd.laba.sinder.service.property.MailProperty;
 import io.swagger.v3.oas.annotations.OpenAPIDefinition;
+import io.swagger.v3.oas.annotations.enums.SecuritySchemeType;
+import io.swagger.v3.oas.annotations.security.SecurityScheme;
 import io.swagger.v3.oas.annotations.servers.Server;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -20,6 +22,12 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import java.util.Properties;
 
 @Configuration
+@SecurityScheme(
+        name = "Bearer Authentication",
+        type = SecuritySchemeType.HTTP,
+        bearerFormat = "JWT",
+        scheme = "bearer"
+)
 @OpenAPIDefinition(
         servers = {
                 @Server(url = "http://localhost", description = "nginx"),
