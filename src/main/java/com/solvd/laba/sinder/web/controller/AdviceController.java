@@ -21,14 +21,14 @@ public class AdviceController {
 
     @ExceptionHandler(IllegalActionException.class)
     @ResponseStatus(HttpStatus.NOT_ACCEPTABLE)
-    public ExceptionDto handleIllegalAction(IllegalActionException e) {
+    public ExceptionDto handleIllegalActionException(IllegalActionException e) {
         return ExceptionDto.builder()
                 .message(e.getMessage())
                 .build();
     }
 
     @ExceptionHandler(MaxUploadSizeExceededException.class)
-    public ExceptionDto handleMaxUploadSizeExceeded(MaxUploadSizeExceededException e) {
+    public ExceptionDto handleMaxUploadSizeExceededException(MaxUploadSizeExceededException e) {
         return ExceptionDto.builder()
                 .message(e.getMessage())
                 .build();
@@ -36,7 +36,7 @@ public class AdviceController {
 
     @ExceptionHandler(InvalidPasswordException.class)
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public ExceptionDto handleInvalidPassword(InvalidPasswordException e) {
+    public ExceptionDto handleInvalidPasswordException(InvalidPasswordException e) {
         return ExceptionDto.builder()
                 .message(e.getMessage())
                 .build();
@@ -44,7 +44,7 @@ public class AdviceController {
 
     @ExceptionHandler(MailException.class)
     @ResponseStatus(HttpStatus.NOT_ACCEPTABLE)
-    public ExceptionDto handleMail(MailException e) {
+    public ExceptionDto handleMailException(MailException e) {
         return ExceptionDto.builder()
                 .message(e.getMessage())
                 .build();
@@ -52,7 +52,7 @@ public class AdviceController {
 
     @ExceptionHandler(ResourceAlreadyExistsException.class)
     @ResponseStatus(HttpStatus.CONFLICT)
-    public ExceptionDto handleResourceAlreadyExists(ResourceAlreadyExistsException e) {
+    public ExceptionDto handleResourceAlreadyExistsException(ResourceAlreadyExistsException e) {
         return ExceptionDto.builder()
                 .message(e.getMessage())
                 .build();
@@ -60,7 +60,7 @@ public class AdviceController {
 
     @ExceptionHandler(ResourceNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    public ExceptionDto handleResourceNotFound(ResourceNotFoundException e) {
+    public ExceptionDto handleResourceNotFoundException(ResourceNotFoundException e) {
         return ExceptionDto.builder()
                 .message(e.getMessage())
                 .build();
@@ -68,7 +68,7 @@ public class AdviceController {
 
     @ExceptionHandler(StorageException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ExceptionDto handleStorage(StorageException e) {
+    public ExceptionDto handleStorageException(StorageException e) {
         return ExceptionDto.builder()
                 .message(e.getMessage())
                 .build();
@@ -76,7 +76,7 @@ public class AdviceController {
 
     @ExceptionHandler({AccessDeniedException.class})
     @ResponseStatus(HttpStatus.FORBIDDEN)
-    public ExceptionDto handleAccessDenied() {
+    public ExceptionDto handleAccessDeniedException() {
         return ExceptionDto.builder()
                 .message("Access denied!")
                 .build();
@@ -84,7 +84,7 @@ public class AdviceController {
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ExceptionDto handleMethodArgumentNotValid(MethodArgumentNotValidException e) {
+    public ExceptionDto handleMethodArgumentNotValidException(MethodArgumentNotValidException e) {
         Map<String, String> otherInfo = e.getBindingResult()
                 .getFieldErrors().stream()
                 .collect(Collectors.toMap(
@@ -102,7 +102,7 @@ public class AdviceController {
 
     @ExceptionHandler(Exception.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    public ExceptionDto handleOther(Exception e) {
+    public ExceptionDto handleOtherExceptions(Exception e) {
         log.error(e.getMessage(), e);
         return ExceptionDto.builder()
                 .message("Please, try later!")

@@ -29,7 +29,7 @@ public class StorageServiceImpl implements StorageService {
     public String uploadPhoto(Long userId, Artifact photo) {
         try {
             createBucket();
-            checkExtension(photo.getFilename());
+//            checkExtension(photo.getFilename());
             CompletableFuture<Void> allFutures = CompletableFuture.allOf(
                     CompletableFuture.runAsync(() -> {
                         String path = "users/" + userId + "/100/" + photo.getFilename();
@@ -68,19 +68,19 @@ public class StorageServiceImpl implements StorageService {
         }
     }
 
-    private void checkExtension(String filename) {
-        if (!isSupportedExtension(FileNameUtils.getExtension(filename))) {
-            throw new StorageException("Only PNG, JPG, JPEG or TIFF images are allowed!");
-        }
-    }
+//    private void checkExtension(String filename) {
+//        if (!isSupportedExtension(FileNameUtils.getExtension(filename))) {
+//            throw new StorageException("Only PNG, JPG, JPEG or TIFF images are allowed!");
+//        }
+//    }
 
-    private boolean isSupportedExtension(String extension) {
-        return extension != null && (
-                extension.equals("png")
-                        || extension.equals("jpg")
-                        || extension.equals("jpeg")
-                        || extension.equals("tiff"));
-    }
+//    private boolean isSupportedExtension(String extension) {
+//        return extension != null && (
+//                extension.equals("png")
+//                        || extension.equals("jpg")
+//                        || extension.equals("jpeg")
+//                        || extension.equals("tiff"));
+//    }
 
     @SneakyThrows
     private void createBucket() {
