@@ -17,8 +17,18 @@ spring:
   jackson:
     default-property-inclusion: NON_NULL
 
+springdoc:
+  override-with-generic-response: false
+  swagger-ui:
+    path: ${sinder.context-path}/swagger-ui.html
+    url: ${sinder.context-path}/v3/api-docs
+    config-url: ${sinder.context-path}/v3/api-docs/swagger-config
+    disable-swagger-default-url: true
+  api-docs:
+    path: ${sinder.context-path}/v3/api-docs
 
 sinder:
+  context-path: /sinder/v1
   security:
     access-key: ${SINDER_SECRETS_ACCESS-KEY}
     refresh-key: ${SINDER_SECRETS_REFRESH-KEY}
@@ -26,22 +36,10 @@ sinder:
     password-refresh-key: ${SINDER_SECRETS_PASSWORD-REFRESH-KEY}
     access-expiration-time: ${SINDER_SECRETS_ACCESS-EXPIRATION-TIME}
     refresh-expiration-time: ${SINDER_SECRETS_REFRESH-EXPIRATION-TIME}
-
   mail:
     host: ${SINDER_MAIL_HOST}
     username: ${SINDER_MAIL_USERNAME}
     password: ${SINDER_MAIL_PASSWORD}
     port: ${SINDER_MAIL_PORT}
     protocol: ${SINDER_MAIL_PROTOCOL}
-
-springdoc:
-  override-with-generic-response: false
-  swagger-ui:
-    path: /sinder/v1/swagger-ui.html
-    url: /sinder/v1/v3/api-docs
-    config-url: /sinder/v1/v3/api-docs/swagger-config
-    disable-swagger-default-url: true
-  api-docs:
-    path: /sinder/v1/v3/api-docs
-
 
