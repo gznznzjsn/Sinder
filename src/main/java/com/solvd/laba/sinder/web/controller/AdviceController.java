@@ -31,8 +31,18 @@ public class AdviceController {
     @ExceptionHandler(BindException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ExceptionDto handleBindException(BindException e) {
+        Map<String, String> otherInfo = e.getBindingResult()
+                .getFieldErrors().stream()
+                .collect(Collectors.toMap(
+                                (FieldError::getField),
+                                (fieldError ->
+                                        fieldError.getDefaultMessage() == null ? "No message" : fieldError.getDefaultMessage()
+                                )
+                        )
+                );
         return ExceptionDto.builder()
-                .message(e.getMessage())
+                .message("One or more of arguments are invalid!")
+                .otherInfo(otherInfo)
                 .build();
     }
 
