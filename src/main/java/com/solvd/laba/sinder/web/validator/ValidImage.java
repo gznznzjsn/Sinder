@@ -3,17 +3,15 @@ package com.solvd.laba.sinder.web.validator;
 
 import javax.validation.Constraint;
 import javax.validation.Payload;
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
+import java.lang.annotation.*;
 
-@Target({ElementType.PARAMETER, ElementType.FIELD})
+@Target({ElementType.FIELD, ElementType.TYPE, ElementType.PARAMETER})
 @Retention(RetentionPolicy.RUNTIME)
+@Documented
 @Constraint(validatedBy = {ImageFileValidator.class})
 public @interface ValidImage {
 
-    String message() default "Invalid image file";
+    String message() default "Invalid image file!";
 
     Class<?>[] groups() default {};
 

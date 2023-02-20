@@ -5,6 +5,7 @@ import com.solvd.laba.sinder.web.dto.ExceptionDto;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.AccessDeniedException;
+import org.springframework.validation.BindException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -22,6 +23,14 @@ public class AdviceController {
     @ExceptionHandler(IllegalActionException.class)
     @ResponseStatus(HttpStatus.NOT_ACCEPTABLE)
     public ExceptionDto handleIllegalActionException(IllegalActionException e) {
+        return ExceptionDto.builder()
+                .message(e.getMessage())
+                .build();
+    }
+
+    @ExceptionHandler(BindException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ExceptionDto handleBindException(BindException e) {
         return ExceptionDto.builder()
                 .message(e.getMessage())
                 .build();

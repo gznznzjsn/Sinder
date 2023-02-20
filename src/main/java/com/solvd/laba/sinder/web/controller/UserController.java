@@ -3,18 +3,18 @@ package com.solvd.laba.sinder.web.controller;
 import com.solvd.laba.sinder.domain.Artifact;
 import com.solvd.laba.sinder.domain.User;
 import com.solvd.laba.sinder.service.UserService;
+import com.solvd.laba.sinder.web.dto.ArtifactDto;
 import com.solvd.laba.sinder.web.dto.UserDto;
 import com.solvd.laba.sinder.web.dto.group.OnUpdate;
 import com.solvd.laba.sinder.web.dto.mapper.ArtifactMapper;
 import com.solvd.laba.sinder.web.dto.mapper.UserMapper;
-import com.solvd.laba.sinder.web.validator.ValidImage;
+
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 @RequiredArgsConstructor
@@ -52,9 +52,9 @@ public class UserController {
     @SneakyThrows
     @PreAuthorize("@securityExpressions.isUser(#userId)")
     @PostMapping ("/{userId}/photos")
-    public UserDto addPhoto(@RequestPart @ValidImage MultipartFile photo,
+    public UserDto addPhoto(@Validated ArtifactDto artifactDto,
                             @PathVariable Long userId) {
-        Artifact artifact = artifactMapper.toEntity(photo);
+        Artifact artifact = artifactMapper.toEntity(artifactDto);
         User updatedUser = userService.addPhoto(userId, artifact);
         return userMapper.toDto(updatedUser);
     }
