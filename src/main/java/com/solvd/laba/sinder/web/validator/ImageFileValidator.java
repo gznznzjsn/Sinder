@@ -1,10 +1,10 @@
 package com.solvd.laba.sinder.web.validator;
 
+import jakarta.validation.ConstraintValidator;
+import jakarta.validation.ConstraintValidatorContext;
 import org.apache.commons.compress.utils.FileNameUtils;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.validation.ConstraintValidator;
-import javax.validation.ConstraintValidatorContext;
 import java.util.Arrays;
 import java.util.Objects;
 
