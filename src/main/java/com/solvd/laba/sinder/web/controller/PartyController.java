@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/v1/users/{userId}/parties")
+@RequestMapping("/sinder/v1/users/{userId}/parties")
 public class PartyController {
 
     private final PartyService partyService;

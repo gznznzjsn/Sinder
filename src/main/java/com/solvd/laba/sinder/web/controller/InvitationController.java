@@ -20,7 +20,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/v1/users/{userId}/invitations")
+@RequestMapping("/sinder/v1/users/{userId}/invitations")
 public class InvitationController {
 
     private final PartyService partyService;

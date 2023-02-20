@@ -16,10 +16,7 @@ spring:
     url: ${SPRING_MINIO_URL}
   jackson:
     default-property-inclusion: NON_NULL
-  servlet:
-    multipart:
-      max-file-size: 15MB
-      max-request-size: 15MB
+
 
 sinder:
   security:

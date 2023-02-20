@@ -20,7 +20,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/v1/users/{userId}/parties/{partyId}/guests")
+@RequestMapping("/sinder/v1/users/{userId}/parties/{partyId}/guests")
 public class GuestController {
 
     private final UserService userService;

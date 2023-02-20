@@ -18,7 +18,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/v1/users/{userId}/pairs/{pairId}/messages")
+@RequestMapping("/sinder/v1/users/{userId}/pairs/{pairId}/messages")
 public class MessageController {
 
     private final MessageService messageService;
