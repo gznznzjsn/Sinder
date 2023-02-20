@@ -37,4 +37,11 @@ sinder:
 springdoc:
   override-with-generic-response: false
   swagger-ui:
-    path: /api/v1/swagger-ui
+    path: /sinder/v1/swagger-ui.html
+    url: /sinder/v1/v3/api-docs
+    config-url: /sinder/v1/v3/api-docs/swagger-config
+    disable-swagger-default-url: true
+  api-docs:
+    path: /sinder/v1/v3/api-docs
+
+
