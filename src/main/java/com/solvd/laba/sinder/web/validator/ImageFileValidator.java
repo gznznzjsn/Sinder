@@ -2,6 +2,7 @@ package com.solvd.laba.sinder.web.validator;
 
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
+import lombok.SneakyThrows;
 import org.apache.commons.compress.utils.FileNameUtils;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -17,6 +18,7 @@ public class ImageFileValidator implements ConstraintValidator<ValidImage, Multi
 
     }
 
+    @SneakyThrows
     @Override
     public boolean isValid(MultipartFile multipartFile, ConstraintValidatorContext context) {
         String extension = FileNameUtils.getExtension(multipartFile.getOriginalFilename());
@@ -28,7 +30,7 @@ public class ImageFileValidator implements ConstraintValidator<ValidImage, Multi
         }
         if (!isSupportedExtension(extension)) {
             context.disableDefaultConstraintViolation();
-            context.buildConstraintViolationWithTemplate("Only PNG, JPG, JPEG or TIFF images are allowed!")
+            context.buildConstraintViolationWithTemplate("Only " + Arrays.toString(TYPES) + " images are allowed!")
                     .addConstraintViolation();
             return false;
         }
