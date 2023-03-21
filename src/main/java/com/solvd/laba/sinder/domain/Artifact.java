@@ -9,10 +9,9 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Attachment {
+public class Artifact {
 
-    private Boolean phoneNumber;
-    private Boolean instagramLink;
-    private Boolean facebookLink;
+    private String filename;
+    private byte[] bytes;
 
 }

@@ -1,7 +1,7 @@
 package com.solvd.laba.sinder.web.security.manager.impl;
 
 import com.solvd.laba.sinder.web.security.manager.JwtManager;
-import com.solvd.laba.sinder.web.security.property.JwtProperty;
+import com.solvd.laba.sinder.service.property.JwtProperty;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;

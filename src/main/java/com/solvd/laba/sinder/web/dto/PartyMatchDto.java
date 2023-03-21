@@ -1,7 +1,7 @@
 package com.solvd.laba.sinder.web.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.solvd.laba.sinder.domain.partymatch.PartyMatchStatus;
+import com.solvd.laba.sinder.domain.parties.PartyMatchStatus;
 
 public record PartyMatchDto(
 

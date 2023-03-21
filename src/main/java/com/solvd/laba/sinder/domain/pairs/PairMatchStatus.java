@@ -1,4 +1,4 @@
-package com.solvd.laba.sinder.domain.pairmatch;
+package com.solvd.laba.sinder.domain.pairs;
 
 public enum PairMatchStatus {
 

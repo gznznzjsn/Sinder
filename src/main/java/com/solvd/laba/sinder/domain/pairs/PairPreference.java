@@ -1,5 +1,6 @@
-package com.solvd.laba.sinder.domain.user;
+package com.solvd.laba.sinder.domain.pairs;
 
+import com.solvd.laba.sinder.domain.Gender;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import jakarta.persistence.*;

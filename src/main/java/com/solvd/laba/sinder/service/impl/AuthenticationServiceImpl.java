@@ -1,8 +1,8 @@
 package com.solvd.laba.sinder.service.impl;
 
 import com.solvd.laba.sinder.domain.exception.InvalidPasswordException;
-import com.solvd.laba.sinder.domain.user.AuthEntity;
-import com.solvd.laba.sinder.domain.user.User;
+import com.solvd.laba.sinder.domain.AuthEntity;
+import com.solvd.laba.sinder.domain.User;
 import com.solvd.laba.sinder.service.AuthenticationService;
 import com.solvd.laba.sinder.service.MailService;
 import com.solvd.laba.sinder.service.UserService;
@@ -42,8 +42,8 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         user = userService.create(user);
         String enableJwt = enableJwtManager.generateToken(user);
         String subject = "Enable profile";
-//        mailService.sendMail();
-        // todo send email
+        String link = "http://localhost/api/v1/authentication/enable?enableToken=" + enableJwt;
+        mailService.sendMail(user, "registerUser.ftl", subject, link);
     }
 
     @Override
@@ -96,8 +96,8 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         User user = userService.retrieveByEmail(authEntity.getEmail());
         String refreshPasswordJwt = passwordRefreshJwtManager.generateToken(user);
         String subject = "Refresh password";
-//        mailService.sendMail();
-        // todo send email
+        String link = "http://localhost/api/v1/authentication/password/request?passwordRefreshToken=" + refreshPasswordJwt;
+        mailService.sendMail(user, "refreshPassword.ftl", subject, link);
     }
 
     @Override

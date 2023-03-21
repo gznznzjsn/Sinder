@@ -1,6 +1,7 @@
 package com.solvd.laba.sinder.service;
 
-import com.solvd.laba.sinder.domain.user.User;
+import com.solvd.laba.sinder.domain.Artifact;
+import com.solvd.laba.sinder.domain.User;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -23,5 +24,9 @@ public interface UserService {
     User update(User user);
 
     void delete(Long userId);
+
+    User addPhoto(Long userId, Artifact photo);
+
+    void deletePhoto(Long userId, String filename);
 
 }

@@ -1,7 +1,7 @@
 package com.solvd.laba.sinder.web.controller;
 
-import com.solvd.laba.sinder.domain.Party;
-import com.solvd.laba.sinder.domain.partymatch.PartyMatch;
+import com.solvd.laba.sinder.domain.parties.Party;
+import com.solvd.laba.sinder.domain.parties.PartyMatch;
 import com.solvd.laba.sinder.service.PartyMatchService;
 import com.solvd.laba.sinder.service.PartyService;
 import com.solvd.laba.sinder.web.dto.PartyDto;
@@ -20,7 +20,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/v1/users/{userId}/invitations")
+@RequestMapping("/sinder/v1/users/{userId}/invitations")
 public class InvitationController {
 
     private final PartyService partyService;

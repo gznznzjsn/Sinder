@@ -1,7 +1,7 @@
 package com.solvd.laba.sinder.web.security.manager.impl;
 
 import com.solvd.laba.sinder.web.security.manager.JwtManager;
-import com.solvd.laba.sinder.web.security.property.JwtProperty;
+import com.solvd.laba.sinder.service.property.JwtProperty;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -35,7 +35,7 @@ public class EnableJwtManager implements JwtManager {
                 .builder()
                 .setSubject(userDetails.getUsername())
                 .setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis() + 1000L * jwtProperty.getRefreshExpirationTime()))
+                .setExpiration(new Date(System.currentTimeMillis() + 1000L * jwtProperty.getAccessExpirationTime()))
                 .signWith(enableKey, SignatureAlgorithm.HS256)
                 .compact();
     }

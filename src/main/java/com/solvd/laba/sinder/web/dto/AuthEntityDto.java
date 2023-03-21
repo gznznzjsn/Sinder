@@ -13,6 +13,7 @@ public record AuthEntityDto(
         @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
         String name,
 
+        @NotBlank(groups = {OnRegister.class}, message = "Surname can't be blank!")
         @Length(min = 2, max = 50, groups = {OnRegister.class}, message = "Surname must include minimum {min} and maximum {max} characters!")
         @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
         String surname,

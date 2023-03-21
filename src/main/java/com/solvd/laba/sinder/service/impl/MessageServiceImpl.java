@@ -1,9 +1,9 @@
 package com.solvd.laba.sinder.service.impl;
 
-import com.solvd.laba.sinder.domain.Attachment;
-import com.solvd.laba.sinder.domain.Message;
+import com.solvd.laba.sinder.domain.chat.Attachment;
+import com.solvd.laba.sinder.domain.chat.Message;
 import com.solvd.laba.sinder.domain.exception.ResourceNotFoundException;
-import com.solvd.laba.sinder.domain.user.User;
+import com.solvd.laba.sinder.domain.User;
 import com.solvd.laba.sinder.persistence.MessageRepository;
 import com.solvd.laba.sinder.service.MessageService;
 import lombok.RequiredArgsConstructor;
@@ -22,7 +22,7 @@ public class MessageServiceImpl implements MessageService {
     @Override
     @Transactional(readOnly = true)
     public List<Message> retrieveAll(Long userId, Long pairId) {
-        return messageRepository.findAllBySenderIdAndReceiverIdOrSenderIdAndReceiverId(userId, pairId, pairId, userId);
+        return messageRepository.findAllBySenderIdAndReceiverIdOrSenderIdAndReceiverIdOrderByDateTime(userId, pairId, pairId, userId);
     }
 
     @Override

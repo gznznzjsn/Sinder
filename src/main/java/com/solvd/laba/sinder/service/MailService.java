@@ -1,6 +1,6 @@
 package com.solvd.laba.sinder.service;
 
-import com.solvd.laba.sinder.domain.user.User;
+import com.solvd.laba.sinder.domain.User;
 
 public interface MailService {
 

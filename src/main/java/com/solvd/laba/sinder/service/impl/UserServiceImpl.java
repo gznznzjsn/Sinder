@@ -1,11 +1,13 @@
 package com.solvd.laba.sinder.service.impl;
 
+import com.solvd.laba.sinder.domain.Artifact;
+import com.solvd.laba.sinder.domain.User;
 import com.solvd.laba.sinder.domain.exception.ResourceAlreadyExistsException;
 import com.solvd.laba.sinder.domain.exception.ResourceNotFoundException;
-import com.solvd.laba.sinder.domain.user.PairPreference;
-import com.solvd.laba.sinder.domain.user.PartyPreference;
-import com.solvd.laba.sinder.domain.user.User;
+import com.solvd.laba.sinder.domain.pairs.PairPreference;
+import com.solvd.laba.sinder.domain.parties.PartyPreference;
 import com.solvd.laba.sinder.persistence.UserRepository;
+import com.solvd.laba.sinder.service.StorageService;
 import com.solvd.laba.sinder.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -13,11 +15,14 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
+    private final StorageService storageService;
 
     @Override
     @Transactional(readOnly = true)
@@ -78,7 +83,6 @@ public class UserServiceImpl implements UserService {
         foundUser.setAge(user.getAge());
         foundUser.setDescription(user.getDescription());
         foundUser.setGender(user.getGender());
-        foundUser.setPhotos(user.getPhotos());
         foundUser.setPhoneNumber(user.getPhoneNumber());
         foundUser.setInstagramLink(user.getInstagramLink());
         foundUser.setFacebookLink(user.getFacebookLink());
@@ -93,6 +97,28 @@ public class UserServiceImpl implements UserService {
         partyPreference.setPartyDates(user.getPartyPreference().getPartyDates());
         foundUser.setPartyPreference(partyPreference);
         return userRepository.save(foundUser);
+    }
+
+    @Override
+    @Transactional
+    public User addPhoto(Long userId, Artifact photo) {
+        User user = retrieveById(userId);
+        List<String> photos = user.getPhotos();
+        String path = storageService.uploadPhoto(userId, photo);
+        photos.add(path);
+        user.setPhotos(photos);
+        return userRepository.save(user);
+    }
+
+    @Override
+    @Transactional
+    public void deletePhoto(Long userId, String filename) {
+        User user = retrieveById(userId);
+        List<String> photos = user.getPhotos();
+        String path = storageService.deletePhoto(userId, filename);
+        photos.remove(path);
+        user.setPhotos(photos);
+        userRepository.save(user);
     }
 
     @Override

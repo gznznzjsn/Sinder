@@ -1,4 +1,4 @@
-package com.solvd.laba.sinder.domain.user;
+package com.solvd.laba.sinder.domain.pairs;
 
 public enum Goal {
 

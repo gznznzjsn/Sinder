@@ -1,6 +1,6 @@
 package com.solvd.laba.sinder.web.dto.mapper;
 
-import com.solvd.laba.sinder.domain.user.AuthEntity;
+import com.solvd.laba.sinder.domain.AuthEntity;
 import com.solvd.laba.sinder.web.dto.AuthEntityDto;
 import org.mapstruct.Mapper;
 

@@ -1,4 +1,4 @@
-package com.solvd.laba.sinder.domain.user;
+package com.solvd.laba.sinder.domain;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

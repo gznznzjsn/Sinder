@@ -1,7 +1,7 @@
 package com.solvd.laba.sinder.web.controller;
 
-import com.solvd.laba.sinder.domain.Party;
-import com.solvd.laba.sinder.domain.user.User;
+import com.solvd.laba.sinder.domain.User;
+import com.solvd.laba.sinder.domain.parties.Party;
 import com.solvd.laba.sinder.service.PartyService;
 import com.solvd.laba.sinder.web.dto.PartyDto;
 import com.solvd.laba.sinder.web.dto.group.OnUpdate;
@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/v1/users/{userId}/parties")
+@RequestMapping("/sinder/v1/users/{userId}/parties")
 public class PartyController {
 
     private final PartyService partyService;
